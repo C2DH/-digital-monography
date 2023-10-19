@@ -13,6 +13,11 @@ COPY requirements.txt ./
 # Disable the cash using `--no-cache-dir` option to lower image size.
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Give the user permissions to write to /data directory.
+COPY /data /data
+RUN chown -R app_user:app_user /data
+RUN chmod 755 /data
+
 # Change the user to the previously created __app_user__.
 USER app_user
 
