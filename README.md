@@ -38,3 +38,24 @@ To stop the running container and remove it, use
 ```sh
 docker compose down
 ```
+
+# Static analysis
+
+## Linting
+
+You can run the linter and the type checker while running the container. As of now, linting is executed only manually.
+
+```sh
+mypy /src
+flake8 /src
+```
+
+## Formatting
+
+For now, formatting of the code (incl. import sorting) is meant to be done in your IDE environment.
+
+For example, you can set up the VS Code editor to format the code. VS Code settings that should be uniform for all contributors are set up in the `.vscode/settings.json` file. Some settings can be configured per User in the VS Code settings console - for example you can set the "Format On Save" to true to automatize the formatting process.
+
+Extensions to install on the VS Code marketplace:
+* [Black Formatter by Microsoft](https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter)
+* [isort by Microsoft](https://marketplace.visualstudio.com/items?itemName=ms-python.isort)

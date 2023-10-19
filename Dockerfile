@@ -7,11 +7,12 @@ FROM python:3.10-slim
 RUN useradd --create-home --shell /bin/bash app_user
 
 # Copy the requirements.txt file
-COPY requirements.txt ./
+COPY /requirements /requirements
 
 # Install all required packages.
 # Disable the cash using `--no-cache-dir` option to lower image size.
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements/dev.txt
+# RUN pip install --no-cache-dir -r requirements/prod.txt
 
 # Give the user permissions to write to /data directory.
 COPY /data /data
