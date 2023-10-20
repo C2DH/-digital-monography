@@ -17,12 +17,12 @@ RUN pip install -r requirements/dev.txt
 # Give the user permissions to write to /data directory.
 COPY /data /data
 RUN chown -R app_user:app_user /data
-RUN chmod 755 /data
+RUN chmod +rwx------ /data
 
 # Give the user permissions to write to /logs directory.
 COPY /logs /logs
 RUN chown -R app_user:app_user /logs
-RUN chmod 755 /logs
+RUN chmod +rwx------ /logs
 
 # Change the user to the previously created __app_user__.
 USER app_user
