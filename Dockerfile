@@ -19,6 +19,11 @@ COPY /data /data
 RUN chown -R app_user:app_user /data
 RUN chmod 755 /data
 
+# Give the user permissions to write to /logs directory.
+COPY /logs /logs
+RUN chown -R app_user:app_user /logs
+RUN chmod 755 /logs
+
 # Change the user to the previously created __app_user__.
 USER app_user
 
