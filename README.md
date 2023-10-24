@@ -53,7 +53,7 @@ To go back to the container (or rather to attach your terminal to container stdi
 
 ## Cleaning
 
-To stop the running container and remove it, use
+To stop running containers and remove them, use
 
 ```sh
 docker compose down
