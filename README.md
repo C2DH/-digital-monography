@@ -11,7 +11,27 @@ To build the image run the following (note that the aim of the `--rm` argument i
 docker compose build
 ```
 
-## Running
+## Workflow
+
+### Transform .docx to .md
+
+#TODO
+
+### Run markdown verification
+
+For now, the project is using [markdownlint](https://github.com/DavidAnson/markdownlint) via the [markdownlint-cli](https://github.com/igorshubovych/markdownlint-cli). Note that this linter only supports _Markdown/CommonMark files_. It won't be able to verify the _MyST_ specification.
+
+```sh
+docker compose run mdlint "/home/app_user/data/md/<path-to-the-file>.md"
+```
+
+`markdownlint-cli` supports advanced globbing patterns like `**/*.md` ([more information](https://github.com/isaacs/node-glob/blob/main/README.md#glob-primer)).
+
+### Transform .md to .ipynb
+
+#TODO
+
+## Running modes
 
 ### Running in the TTY mode
 
