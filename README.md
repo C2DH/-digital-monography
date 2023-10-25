@@ -5,17 +5,19 @@ Platform for scholars of digital humanities to publish their digital work
 
 ## Building
 
-To build the image run the following (note that the aim of the `--rm` argument is to remove intermediate containers after the build is done):
+In order to use the tools, you have to set up all of the services that handle each step of the workflow. The following command will **build** and **start** all of those services.
 
 ```sh
-docker compose build
+docker compose up -d
 ```
 
 ## Workflow
 
 ### Transform .docx to .md
 
-#TODO
+```sh
+docker compose exec main python src/docx2md.py
+```
 
 ### Run markdown verification
 
@@ -26,6 +28,10 @@ docker compose run mdlint "/home/app_user/data/md/<path-to-the-file>.md"
 ```
 
 `markdownlint-cli` supports advanced globbing patterns like `**/*.md` ([more information](https://github.com/isaacs/node-glob/blob/main/README.md#glob-primer)).
+
+```sh
+docker compose run mdlint "/home/app_user/data/md/<path-to-the-dir>/*.md"
+```
 
 ### Transform .md to .ipynb
 
