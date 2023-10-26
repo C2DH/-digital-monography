@@ -3,6 +3,8 @@ import typing as t
 import uuid
 from dataclasses import dataclass
 
+from constants import DATA_DIR
+
 
 @dataclass
 class BookMetadataExecute:
@@ -119,7 +121,7 @@ class BookConfigParser:
         self.slug: str = self._get_book_slug()
 
     def _open_book_config(self) -> tuple[BookMetadata, TableOfContents]:
-        with open("/home/app_user/data/input/config.toml", "rb") as f:
+        with open(f"{DATA_DIR}/input/config.toml", "rb") as f:
             tomlconfig = tomllib.load(f)
         jb_config = tomlconfig["book_metadata"]
         jb_toc = tomlconfig["table_of_contents"]

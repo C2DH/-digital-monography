@@ -5,6 +5,7 @@ import typing as t
 
 import yaml
 
+from constants import DATA_DIR
 from read_config import BookConfigParser, BookMetadata, TableOfContents
 from utils import create_book_subdir
 
@@ -12,27 +13,27 @@ from utils import create_book_subdir
 def _generate_yaml_files(
     slug: str, jb_config: BookMetadata, jb_toc: TableOfContents
 ) -> None:
-    with open(f"/home/app_user/data/jb/{slug}/_config.yml", "w") as f:
+    with open(f"{DATA_DIR}/jb/{slug}/_config.yml", "w") as f:
         yaml.dump(jb_config, f, default_flow_style=False)
-    with open(f"/home/app_user/data/jb/{slug}/_toc.yml", "w") as f:
+    with open(f"{DATA_DIR}/jb/{slug}/_toc.yml", "w") as f:
         yaml.dump(jb_toc, f, default_flow_style=False)
 
 
 def _copy_content_files(slug: str, jb_config: BookMetadata, jb_toc: TableOfContents):
     shutil.copytree(
-        f"/home/app_user/data/ipynb/{slug}/",
-        f"/home/app_user/data/jb/{slug}/",
+        f"{DATA_DIR}/ipynb/{slug}/",
+        f"{DATA_DIR}/jb/{slug}/",
         dirs_exist_ok=True,
     )
 
 
 def _copy_root_file(slug: str, jb_config: BookMetadata, jb_toc: TableOfContents):
     root_file = next(
-        _find_file(pathlib.Path("/home/app_user/data/input/"), f"{jb_toc['root']}.*")
+        _find_file(pathlib.Path(f"{DATA_DIR}/input/"), f"{jb_toc['root']}.*")
     )
     shutil.copy(
         root_file,
-        f"/home/app_user/data/jb/{slug}/{root_file.name}",
+        f"{DATA_DIR}/jb/{slug}/{root_file.name}",
     )
 
 
@@ -46,8 +47,8 @@ def _copy_bibliography_files(
 ):
     for bibfile in jb_config.get("bibtex_bibfiles", []):
         shutil.copy(
-            f"/home/app_user/data/input/{bibfile}",
-            f"/home/app_user/data/jb/{slug}/{bibfile}",
+            f"{DATA_DIR}/input/{bibfile}",
+            f"{DATA_DIR}/jb/{slug}/{bibfile}",
         )
 
 
@@ -56,7 +57,7 @@ def _build_jupyter_book(slug):
         [
             "jupyter-book",
             "build",
-            f"/home/app_user/data/jb/{slug}/",
+            f"{DATA_DIR}/jb/{slug}/",
         ]
     )
 

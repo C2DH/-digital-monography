@@ -1,5 +1,6 @@
 import subprocess
 
+from constants import DATA_DIR
 from read_config import BookConfigParser  # , BookMetadata, TableOfContents
 
 if __name__ == "__main__":
@@ -13,5 +14,5 @@ if __name__ == "__main__":
     jb_config = bc.jb_config
     jb_toc = bc.jb_toc
     slug = bc.slug
-    bookpath = f"/home/app_user/data/jb/{slug}/"
+    bookpath = f"{DATA_DIR}/jb/{slug}/"
     subprocess.run(["jupyter-book", "build", bookpath, "--builder", "pdfhtml"])

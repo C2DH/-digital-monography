@@ -4,6 +4,7 @@ import subprocess
 
 import yaml
 
+from constants import DATA_DIR
 from read_config import BookConfigParser, BookMetadata, TableOfContents
 from utils import create_book_subdir
 
@@ -12,9 +13,9 @@ from utils import create_book_subdir
 def _generate_yaml_files(
     slug: str, jb_config: BookMetadata, jb_toc: TableOfContents
 ) -> None:
-    with open(f"/home/app_user/data/jb/{slug}/_config.yml", "w") as f:
+    with open(f"{DATA_DIR}/jb/{slug}/_config.yml", "w") as f:
         yaml.dump(jb_config, f, default_flow_style=False)
-    with open(f"/home/app_user/data/jb/{slug}/_toc.yml", "w") as f:
+    with open(f"{DATA_DIR}/jb/{slug}/_toc.yml", "w") as f:
         yaml.dump(jb_toc, f, default_flow_style=False)
 
 
@@ -22,8 +23,8 @@ def _copy_content_files(slug: str, jb_config: BookMetadata, jb_toc: TableOfConte
     for ch in jb_toc.get("chapters", []):
         fn = ch["file"]
         shutil.copy(
-            f"/home/app_user/data/md/{slug}/{fn}.md",
-            f"/home/app_user/data/ipynb/{slug}/{fn}.md",
+            f"{DATA_DIR}/md/{slug}/{fn}.md",
+            f"{DATA_DIR}/ipynb/{slug}/{fn}.md",
         )
 
 
@@ -33,8 +34,8 @@ def _copy_bibliography_files(
 ):
     for bibfile in jb_config.get("bibtex_bibfiles", []):
         shutil.copy(
-            f"/home/app_user/data/input/{bibfile}",
-            f"/home/app_user/data/ipynb/{slug}/{bibfile}",
+            f"{DATA_DIR}/input/{bibfile}",
+            f"{DATA_DIR}/ipynb/{slug}/{bibfile}",
         )
 
 
@@ -43,7 +44,7 @@ def _transform_to_ipynb(slug: str, jb_config: BookMetadata, jb_toc: TableOfConte
     https://myst-nb.readthedocs.io/en/v0.10.1/use/markdown.html#convert-between-ipynb-and-myst-notebooks
     """
     for ch in jb_toc.get("chapters", []):
-        fn = f"/home/app_user/data/ipynb/{slug}/{ch['file']}.md"
+        fn = f"{DATA_DIR}/ipynb/{slug}/{ch['file']}.md"
         subprocess.run(["jupytext", fn, "--to", "ipynb"])
         fp = pathlib.Path(fn)
         if fp.suffix != ".ipynb":
@@ -68,7 +69,7 @@ jupytext --test --update notebook.ipynb --to py:percent
 #         [
 #             "jupyter-book",
 #             "build",
-#             f"/home/app_user/data/jb/{slug}/",
+#             f"{DATA_DIR}/jb/{slug}/",
 #         ]
 #     )
 # "--builder=pdfhtml",
