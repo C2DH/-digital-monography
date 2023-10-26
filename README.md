@@ -35,7 +35,15 @@ docker compose run mdlint "/home/app_user/data/md/<path-to-the-dir>/*.md"
 
 ### Transform .md to .ipynb
 
-#TODO
+```sh
+docker compose exec main python src/md2ipynb.py
+```
+
+### Transform .ipynb to .html
+
+```sh
+docker compose exec main python src/ipynb2html.py
+```
 
 ## Running modes
 

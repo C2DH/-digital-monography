@@ -1,5 +1,7 @@
+import pathlib
 import shutil
 import subprocess
+import typing as t
 
 import yaml
 
@@ -17,12 +19,26 @@ def _generate_yaml_files(
 
 
 def _copy_content_files(slug: str, jb_config: BookMetadata, jb_toc: TableOfContents):
-    for ch in jb_toc.get("chapters", []):
-        fn = ch["file"]
-        shutil.copy(
-            f"/home/app_user/data/md/{slug}/{fn}",
-            f"/home/app_user/data/jb/{slug}/{fn}",
-        )
+    shutil.copytree(
+        f"/home/app_user/data/ipynb/{slug}/",
+        f"/home/app_user/data/jb/{slug}/",
+        dirs_exist_ok=True,
+    )
+
+
+def _copy_root_file(slug: str, jb_config: BookMetadata, jb_toc: TableOfContents):
+    root_file = next(
+        _find_file(pathlib.Path("/home/app_user/data/input/"), f"{jb_toc['root']}.*")
+    )
+    shutil.copy(
+        root_file,
+        f"/home/app_user/data/jb/{slug}/{root_file.name}",
+    )
+
+
+def _find_file(src: pathlib.Path, lookup: str) -> t.Iterator[pathlib.Path]:
+    for f in src.glob(lookup):
+        yield f
 
 
 def _copy_bibliography_files(
@@ -41,7 +57,6 @@ def _build_jupyter_book(slug):
             "jupyter-book",
             "build",
             f"/home/app_user/data/jb/{slug}/",
-            # "--builder=pdfhtml",
         ]
     )
 
@@ -56,4 +71,5 @@ if __name__ == "__main__":
     _generate_yaml_files(slug, jb_config, jb_toc)
     _copy_bibliography_files(slug, jb_config, jb_toc)
     _copy_content_files(slug, jb_config, jb_toc)
+    _copy_root_file(slug, jb_config, jb_toc)
     _build_jupyter_book(slug)
