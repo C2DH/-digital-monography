@@ -1,6 +1,5 @@
 import tomllib
 import typing as t
-import uuid
 from dataclasses import dataclass
 
 from constants import DATA_DIR
@@ -114,15 +113,14 @@ class TableOfContents:
 
 
 class BookConfigParser:
-    def __init__(self):
-        self.jb_config: BookMetadata = None
-        self.jb_toc: TableOfContents = None
-        self.slug: str = str(uuid.uuid4())
+    def __init__(self) -> None:
+        self.jb_config: t.Optional[BookMetadata] = None
+        self.jb_toc: t.Optional[TableOfContents] = None
+        self.slug: str = self._get_book_slug()
 
-    def open_book_config(self):
+    def open_book_config(self) -> None:
         self.jb_config, self.jb_toc = self._open_book_config()
         self._verify_book_config()
-        self.slug: str = self._get_book_slug()
 
     def _open_book_config(self) -> tuple[BookMetadata, TableOfContents]:
         with open(f"{DATA_DIR}/input/config.toml", "rb") as f:
