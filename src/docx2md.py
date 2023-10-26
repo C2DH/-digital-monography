@@ -8,8 +8,8 @@ def _copy_content_files(slug: str, jb_config: BookMetadata, jb_toc: TableOfConte
     for ch in jb_toc.get("chapters", []):
         fn = ch["file"]
         shutil.copy(
-            f"/home/app_user/data/input/{fn}",
-            f"/home/app_user/data/md/{slug}/{fn}",
+            f"/home/app_user/data/input/{fn}.md",
+            f"/home/app_user/data/md/{slug}/{fn}.md",
         )
 
 
