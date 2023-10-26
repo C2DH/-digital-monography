@@ -6,8 +6,7 @@ import typing as t
 import yaml
 
 from constants import DATA_DIR
-from read_config import BookConfigParser, BookMetadata, TableOfContents
-from utils import create_book_subdir
+from utils import BookConfigParser, BookMetadata, TableOfContents, create_book_subdir
 
 
 def _generate_yaml_files(

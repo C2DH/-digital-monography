@@ -1,8 +1,7 @@
 import shutil
 
 from constants import DATA_DIR
-from read_config import BookConfigParser, BookMetadata, TableOfContents
-from utils import create_book_subdir
+from utils import BookConfigParser, BookMetadata, TableOfContents, create_book_subdir
 
 
 def _copy_content_files(slug: str, jb_config: BookMetadata, jb_toc: TableOfContents):

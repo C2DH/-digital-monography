@@ -5,8 +5,7 @@ import subprocess
 import yaml
 
 from constants import DATA_DIR
-from read_config import BookConfigParser, BookMetadata, TableOfContents
-from utils import create_book_subdir
+from utils import BookConfigParser, BookMetadata, TableOfContents, create_book_subdir
 
 
 # TODO: move to ipynb 2 html

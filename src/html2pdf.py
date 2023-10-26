@@ -1,7 +1,7 @@
 import subprocess
 
 from constants import DATA_DIR
-from read_config import BookConfigParser  # , BookMetadata, TableOfContents
+from utils import BookConfigParser
 
 if __name__ == "__main__":
     """
