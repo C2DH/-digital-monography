@@ -13,7 +13,9 @@ class BookMetadataExecute:
     timeout: int
     run_in_temp: bool
     allow_errors: bool
-    stderr_output: t.Literal["show", "remove", "remove-warn", "warn", "error", "severe"]
+    stderr_output: t.Literal[
+        "show", "remove", "remove-warn", "warn", "error", "severe"
+    ]
     execute_notebooks: t.Literal["auto", "force", "cache", "off"]
 
 
@@ -49,7 +51,9 @@ class BookMetadataHtml:
 @dataclass
 class BookMetadataLatex:
     use_jupyterbook_latex: bool
-    latex_engine: t.Literal["pdflatex", "xelatex", "luatex", "platex", "uplatex"]
+    latex_engine: t.Literal[
+        "pdflatex", "xelatex", "luatex", "platex", "uplatex"
+    ]
 
 
 @dataclass

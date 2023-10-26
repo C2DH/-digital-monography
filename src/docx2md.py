@@ -1,10 +1,17 @@
 import shutil
 
 from constants import DATA_DIR
-from utils import BookConfigParser, BookMetadata, TableOfContents, create_book_subdir
+from utils import (
+    BookConfigParser,
+    BookMetadata,
+    TableOfContents,
+    create_book_subdir,
+)
 
 
-def _copy_content_files(slug: str, jb_config: BookMetadata, jb_toc: TableOfContents):
+def _copy_content_files(
+    slug: str, jb_config: BookMetadata, jb_toc: TableOfContents
+):
     for ch in jb_toc.get("chapters", []):
         fn = ch["file"]
         shutil.copy(

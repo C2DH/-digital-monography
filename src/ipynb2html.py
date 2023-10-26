@@ -6,7 +6,12 @@ import typing as t
 import yaml
 
 from constants import DATA_DIR
-from utils import BookConfigParser, BookMetadata, TableOfContents, create_book_subdir
+from utils import (
+    BookConfigParser,
+    BookMetadata,
+    TableOfContents,
+    create_book_subdir,
+)
 
 
 def _generate_yaml_files(
@@ -18,7 +23,9 @@ def _generate_yaml_files(
         yaml.dump(jb_toc, f, default_flow_style=False)
 
 
-def _copy_content_files(slug: str, jb_config: BookMetadata, jb_toc: TableOfContents):
+def _copy_content_files(
+    slug: str, jb_config: BookMetadata, jb_toc: TableOfContents
+):
     shutil.copytree(
         f"{DATA_DIR}/ipynb/{slug}/",
         f"{DATA_DIR}/jb/{slug}/",
@@ -26,7 +33,9 @@ def _copy_content_files(slug: str, jb_config: BookMetadata, jb_toc: TableOfConte
     )
 
 
-def _copy_root_file(slug: str, jb_config: BookMetadata, jb_toc: TableOfContents):
+def _copy_root_file(
+    slug: str, jb_config: BookMetadata, jb_toc: TableOfContents
+):
     root_file = next(
         _find_file(pathlib.Path(f"{DATA_DIR}/input/"), f"{jb_toc['root']}.*")
     )

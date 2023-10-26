@@ -5,7 +5,12 @@ import subprocess
 import yaml
 
 from constants import DATA_DIR
-from utils import BookConfigParser, BookMetadata, TableOfContents, create_book_subdir
+from utils import (
+    BookConfigParser,
+    BookMetadata,
+    TableOfContents,
+    create_book_subdir,
+)
 
 
 # TODO: move to ipynb 2 html
@@ -18,7 +23,9 @@ def _generate_yaml_files(
         yaml.dump(jb_toc, f, default_flow_style=False)
 
 
-def _copy_content_files(slug: str, jb_config: BookMetadata, jb_toc: TableOfContents):
+def _copy_content_files(
+    slug: str, jb_config: BookMetadata, jb_toc: TableOfContents
+):
     for ch in jb_toc.get("chapters", []):
         fn = ch["file"]
         shutil.copy(
@@ -38,7 +45,9 @@ def _copy_bibliography_files(
         )
 
 
-def _transform_to_ipynb(slug: str, jb_config: BookMetadata, jb_toc: TableOfContents):
+def _transform_to_ipynb(
+    slug: str, jb_config: BookMetadata, jb_toc: TableOfContents
+):
     """
     https://myst-nb.readthedocs.io/en/v0.10.1/use/markdown.html#convert-between-ipynb-and-myst-notebooks
     """
