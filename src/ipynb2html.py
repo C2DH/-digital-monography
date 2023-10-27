@@ -12,7 +12,7 @@ from utils import (
     TableOfContents,
     config_logging,
     create_book_subdir,
-    exec_subps_and_log,
+    subprocess_run_and_log,
 )
 
 config_logging()
@@ -67,7 +67,7 @@ def _copy_bibliography_files(
 
 
 def _build_jupyter_book(slug):
-    exec_subps_and_log(
+    subprocess_run_and_log(
         [
             "jupyter-book",
             "build",

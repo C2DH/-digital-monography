@@ -15,7 +15,7 @@ def config_logging() -> None:
     )
 
 
-def exec_subps_and_log(args: list[str], logger: logging.Logger) -> None:
+def subprocess_run_and_log(args: list[str], logger: logging.Logger) -> None:
     """
     Execute a child program in a new process with specifying stdout and stderr.
     See docs:

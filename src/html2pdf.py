@@ -1,7 +1,7 @@
 import logging
 
 from constants import DATA_DIR
-from utils import BookConfigParser, config_logging, exec_subps_and_log
+from utils import BookConfigParser, config_logging, subprocess_run_and_log
 
 config_logging()
 
@@ -21,7 +21,7 @@ if __name__ == "__main__":
     jb_toc = bc.jb_toc
     slug = bc.slug
     bookpath = f"{DATA_DIR}/jb/{slug}/"
-    exec_subps_and_log(
+    subprocess_run_and_log(
         ["jupyter-book", "build", bookpath, "--builder", "pdfhtml"],
         logger,
     )

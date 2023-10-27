@@ -8,7 +8,7 @@ from utils import (
     TableOfContents,
     config_logging,
     create_book_subdir,
-    exec_subps_and_log,
+    subprocess_run_and_log,
 )
 
 config_logging()
@@ -48,7 +48,7 @@ def _transform_to_ipynb(
     """
     for ch in jb_toc.get("chapters", []):
         fn = f"{DATA_DIR}/ipynb/{slug}/{ch['file']}.md"
-        exec_subps_and_log(["jupytext", fn, "--to", "ipynb"], logger)
+        subprocess_run_and_log(["jupytext", fn, "--to", "ipynb"], logger)
     logger.info("Found no errors while transforming files to .ipynb.")
 
 
