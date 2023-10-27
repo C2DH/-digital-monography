@@ -1,6 +1,6 @@
+import logging
 import pathlib
 import shutil
-import subprocess
 import typing as t
 
 import yaml
@@ -10,8 +10,14 @@ from utils import (
     BookConfigParser,
     BookMetadata,
     TableOfContents,
+    config_logging,
     create_book_subdir,
+    exec_subps_and_log,
 )
+
+config_logging()
+
+logger = logging.getLogger("root.ipynb2html")
 
 
 def _generate_yaml_files(
@@ -61,16 +67,18 @@ def _copy_bibliography_files(
 
 
 def _build_jupyter_book(slug):
-    subprocess.run(
+    exec_subps_and_log(
         [
             "jupyter-book",
             "build",
             f"{DATA_DIR}/jb/{slug}/",
-        ]
+        ],
+        logger,
     )
 
 
 if __name__ == "__main__":
+    logger.info("New process: transforming .html files to a .pdf file.")
     bc = BookConfigParser()
     bc.open_book_config()
     jb_config = bc.jb_config

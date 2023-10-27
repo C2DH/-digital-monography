@@ -1,14 +1,19 @@
-import pathlib
+import logging
 import shutil
-import subprocess
 
 from constants import DATA_DIR
 from utils import (
     BookConfigParser,
     BookMetadata,
     TableOfContents,
+    config_logging,
     create_book_subdir,
+    exec_subps_and_log,
 )
+
+config_logging()
+
+logger = logging.getLogger("root.md2ipynb")
 
 
 def _copy_content_files(
@@ -20,6 +25,7 @@ def _copy_content_files(
             f"{DATA_DIR}/md/{slug}/{fn}.md",
             f"{DATA_DIR}/ipynb/{slug}/{fn}.md",
         )
+    logger.info("Found no errors while copying content files.")
 
 
 def _transform_to_ipynb(
@@ -42,13 +48,12 @@ def _transform_to_ipynb(
     """
     for ch in jb_toc.get("chapters", []):
         fn = f"{DATA_DIR}/ipynb/{slug}/{ch['file']}.md"
-        subprocess.run(["jupytext", fn, "--to", "ipynb"])
-        fp = pathlib.Path(fn)
-        if fp.suffix != ".ipynb":
-            fp.unlink(missing_ok=True)
+        exec_subps_and_log(["jupytext", fn, "--to", "ipynb"], logger)
+    logger.info("Found no errors while transforming files to .ipynb.")
 
 
 if __name__ == "__main__":
+    logger.info("New process: transforming .md files to a .ipynb file.")
     bc = BookConfigParser()
     bc.open_book_config()
     jb_config = bc.jb_config
