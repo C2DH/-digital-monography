@@ -33,6 +33,12 @@ docker compose run mdlint "/home/app_user/data/md/<path-to-the-file>.md"
 docker compose run mdlint "/home/app_user/data/md/<path-to-the-dir>/*.md"
 ```
 
+You might also want to redirect stdout and stderr to a log file.
+
+```sh
+docker compose run mdlint "/home/app_user/data/md/**/*.md" >> "logs/md_linting.log" 2>&1
+```
+
 ### Transform .md to .ipynb
 
 ```sh
