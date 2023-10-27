@@ -67,6 +67,12 @@ COPY /logs /logs
 RUN chown -R app_user:app_user /logs
 RUN chmod +rwx------ /logs
 
+# Give the user permissions to write to cache tests results.
+COPY /src /src
+RUN mkdir /src/.pytest_cache
+RUN chown -R app_user:app_user /src/.pytest_cache
+RUN chmod +rwx------ /src/.pytest_cache
+
 # Change the user to the previously created __app_user__.
 USER app_user
 

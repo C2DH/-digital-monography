@@ -57,6 +57,12 @@ docker compose exec main python src/ipynb2html.py
 docker compose exec main python src/html2pdf.py
 ```
 
+## Running tests
+
+```sh
+docker compose exec main pytest src
+```
+
 ## Running modes
 
 ### Running in the TTY mode
