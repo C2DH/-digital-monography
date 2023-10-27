@@ -45,6 +45,12 @@ docker compose exec main python src/md2ipynb.py
 docker compose exec main python src/ipynb2html.py
 ```
 
+### Transform .html to .pdf
+
+```sh
+docker compose exec main python src/html2pdf.py
+```
+
 ## Running modes
 
 ### Running in the TTY mode
