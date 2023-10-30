@@ -1,0 +1,6 @@
+"Index", "Item", "Price", "Tax", "Total"
+ 1, "Iron Ore (hematite)",  7.97,   0.60,  8.57
+ 2, "Iron Ore (magnetite)", 2.97,   0.22,  3.19
+ 3, "Iron Ore (limonite)",  7.28,   0.55,  7.83
+ 4, "Iron Ore (siderite)",  6.68,   0.50,  7.18
+ 5, "Iron Ore (goethite)",  10.00,  0.75, 10.75
