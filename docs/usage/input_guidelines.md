@@ -7,9 +7,8 @@ As an author, you are required to upload a package of a following structure:
 ```
 .
 ├── config.toml
-├── text/
-│   ├── part1.md
-│   └── part2-or-some-other-name.md
+├── part1.md
+├── part2-or-some-other-name.md
 ├── img/
 │   ├── part1/
 │   │   ├── img1.jpg
