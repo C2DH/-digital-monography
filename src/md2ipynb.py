@@ -1,7 +1,9 @@
+import argparse
 import logging
+import pathlib
 import shutil
 
-from constants import DATA_DIR
+from constants import CONFIG_NAME, DATA_DIR
 from utils import (
     BookConfigParser,
     BookMetadata,
@@ -14,6 +16,13 @@ from utils import (
 config_logging()
 
 logger = logging.getLogger("root.md2ipynb")
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "project_path",
+    type=pathlib.Path,
+    help=f"Select the project directory, in which there should be {CONFIG_NAME}, "
+    "bibliography and content files.",
+)
 
 
 def _copy_content_files(
@@ -22,8 +31,8 @@ def _copy_content_files(
     for ch in jb_toc.get("chapters", []):
         fn = ch["file"]
         shutil.copy(
-            f"{DATA_DIR}/md/{slug}/{fn}.md",
-            f"{DATA_DIR}/ipynb/{slug}/{fn}.md",
+            f"{DATA_DIR}/md/{slug}/{fn}",
+            f"{DATA_DIR}/ipynb/{slug}/{fn}",
         )
     logger.info("Found no errors while copying content files.")
 
@@ -47,14 +56,15 @@ def _transform_to_ipynb(
             jupytext --test --update notebook.ipynb --to py:percent
     """
     for ch in jb_toc.get("chapters", []):
-        fn = f"{DATA_DIR}/ipynb/{slug}/{ch['file']}.md"
+        fn = f"{DATA_DIR}/ipynb/{slug}/{ch['file']}"
         subprocess_run_and_log(["jupytext", fn, "--to", "ipynb"], logger)
     logger.info("Found no errors while transforming files to .ipynb.")
 
 
 if __name__ == "__main__":
     logger.info("New process: transforming .md files to a .ipynb file.")
-    bc = BookConfigParser()
+    args = parser.parse_args()
+    bc = BookConfigParser(args.project_path)
     bc.open_book_config()
     jb_config = bc.jb_config
     jb_toc = bc.jb_toc

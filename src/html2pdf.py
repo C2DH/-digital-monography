@@ -1,12 +1,22 @@
+import argparse
 import logging
+import pathlib
+import sys
 
-from constants import DATA_DIR
+from constants import CONFIG_NAME, DATA_DIR
 from utils import BookConfigParser, config_logging, subprocess_run_and_log
 
 config_logging()
 
 
 logger = logging.getLogger("root.html2pdf")
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "project_path",
+    type=pathlib.Path,
+    help=f"Select the project directory, in which there should be {CONFIG_NAME}, "
+    "bibliography and content files.",
+)
 
 if __name__ == "__main__":
     """
@@ -15,7 +25,8 @@ if __name__ == "__main__":
     https://jupyterbook.org/en/stable/advanced/pdf.html
     """
     logger.info("New process: transforming .html files to a .pdf file.")
-    bc = BookConfigParser()
+    args = parser.parse_args()
+    bc = BookConfigParser(args.project_path)
     bc.open_book_config()
     jb_config = bc.jb_config
     jb_toc = bc.jb_toc

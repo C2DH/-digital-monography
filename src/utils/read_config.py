@@ -1,8 +1,15 @@
+import logging
+import pathlib
 import tomllib
 import typing as t
 from dataclasses import dataclass
 
-from constants import DATA_DIR
+from .log_mgnt import config_logging
+
+config_logging()
+
+
+logger = logging.getLogger("utils.read_config")
 
 
 @dataclass
@@ -112,28 +119,71 @@ class TableOfContents:
     chapters: list[str]
 
 
+class ConfigFileNotFoundError(FileNotFoundError):
+    pass
+
+
 class BookConfigParser:
-    def __init__(self) -> None:
+    def __init__(self, source: pathlib.PurePath) -> None:
+        self.config_name = "config.toml"
+        self.project_path: pathlib.PurePath = source
         self.jb_config: t.Optional[BookMetadata] = None
         self.jb_toc: t.Optional[TableOfContents] = None
-        self.slug: str = self._get_book_slug()
+        self.slug: str = ""
 
     def open_book_config(self) -> None:
+        self._verify_config_existence()
+        self.config_path = self._find_config_path()
         self.jb_config, self.jb_toc = self._open_book_config()
-        self._verify_book_config()
+        self.slug = self._get_book_slug()
+        self._verify_config_syntax()
+
+    def _verify_config_existence(self) -> None:
+        # if not issubclass(type(self.project_path), pathlib.PurePath):
+        #     logger.error(
+        #         f"Constructor of {self.__name__} class expects a pathlib.Path."
+        #     )
+        if not self.project_path.exists():
+            logger.critical(
+                "The selected project directory was "
+                f"not found in selected path: '{self.project_path}'."
+            )
+            raise ConfigFileNotFoundError
+        if not self.project_path.is_dir():
+            logger.critical(
+                "The selected project folder exists, "
+                f"but is not a directory. Path: '{self.project_path}'."
+            )
+            raise ConfigFileNotFoundError
+        config_path = self._find_config_path()
+        if not config_path.exists():
+            logger.critical(
+                "The configuration file was not found "
+                f"in selected path '{config_path}'."
+            )
+            raise ConfigFileNotFoundError
+        if not config_path.is_file():
+            logger.critical(
+                "The configuration exists but is not a proper file."
+                f"Path '{config_path}'."
+            )
+            raise ConfigFileNotFoundError
+
+    def _find_config_path(self) -> pathlib.PurePath:
+        return self.project_path / self.config_name
 
     def _open_book_config(self) -> tuple[BookMetadata, TableOfContents]:
-        with open(f"{DATA_DIR}/input/config.toml", "rb") as f:
+        with open(self.config_path, "rb") as f:
             tomlconfig = tomllib.load(f)
         jb_config = tomlconfig["book_metadata"]
         jb_toc = tomlconfig["table_of_contents"]
         return jb_config, jb_toc
 
-    def _verify_book_config(self) -> bool:
+    def _verify_config_syntax(self) -> None:
         # TODO # maybe recurse over kv of each config and assert the type?
         # `assert isinstance(arg, int)`
         # see https://mypy.readthedocs.io/en/stable/type_narrowing.html#type-narrowing-expressions
-        return True
+        pass
 
     def _get_book_slug(self) -> str:
-        return "lucchesi_for-a-new-hermeneutics-of-practice-in-digital-public-history"
+        return self.project_path.name
