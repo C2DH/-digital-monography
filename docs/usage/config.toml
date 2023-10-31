@@ -1,0 +1,14 @@
+[book_metadata]
+title = "Guidelines"
+author = "Pawel Kaminski"
+bibtex_bibfiles = ["bibliography.bib"]
+
+[table_of_contents]
+format = "jb-book" # Valid options: "jb-book" or "jb-article"
+root = "index.md"
+
+[[table_of_contents.chapters]]
+file = "input_guidelines.md"
+
+[[table_of_contents.chapters]]
+file = "markdown_guidelines.md"

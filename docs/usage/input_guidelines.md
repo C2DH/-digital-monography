@@ -7,6 +7,7 @@ As an author, you are required to upload a package of a following structure:
 ```
 .
 ├── config.toml
+├── bibliography.bib
 ├── part1.md
 ├── part2-or-some-other-name.md
 ├── img/
