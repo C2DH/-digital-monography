@@ -36,7 +36,17 @@ More than six `#` characters is not a heading.
 
 For more details please read [the specification](https://spec.commonmark.org/0.30/#atx-heading). It might be also useful to read ["how headers and sections map onto to book structure"](https://jupyterbook.org/en/stable/structure/sections-headers.html#how-headers-and-sections-map-onto-to-book-structure).
 
-### Emphasis
+### Typography
+
+#### Paragraphs
+
+It is recommended to divide each paragraph with an empty line.
+
+Please remember that reading continuous blocks of text from a screen can be more eye-straining than reading it from a book.
+
+```
+    Do not add tabs or spaces at the start of a paragraph. Such indentation has a special meaning. Using it might lead to unindended formatting.
+```
 
 #### Italics
 
@@ -86,9 +96,106 @@ H{sub}`2`O
 
 11{sup}`th` of November
 
+### Horizontal Rule
+
+To indicate section breaks in your work, you can use the horizontal rule. To form a visible break within a part of your book/article, use `***`, `---` or `___`.
+
+```
+Text
+***
+More text (note that we have to put blank lines around the horizontal lines.
+
+---
+
+Even more text
+___
+```
+
+Text
+***
+More text (note that we have to put blank lines around the horizontal lines.
+
+---
+
+Even more text
+___
+
 ### Lists
 
-# TODO
+#### Bullet list marker
+
+```
+A list containing non-ordered bullet points can be constructed with the following characters at the beginning of a line:
+- `-` 
++ `+` 
+* `*` 
+```
+
+A list containing non-ordered bullet points can be constructed with the following characters at the beginning of a line:
+- `-` 
++ `+` 
+* `*` 
+
+___
+
+Lists can be indented using double spaces (`  `):
+
+```
+- point 1.
+  - point 1.2. 
+    - point 1.3.
+      - point 1.4.
+- point 2.
+```
+
+- point 1.
+  - point 1.2. 
+    - point 1.3.
+      - point 1.4.
+- point 2.
+
+#### Ordered list marker
+
+An ordered list can be written using an arabic numbered followed by `.` or `)`.
+
+```
+1. First item.
+1. Second item.
+1. Third item.
+```
+
+1. First item.
+1. Second item.
+1. Third item.
+
+Note that using only `1.` leads to an auto-incremented list. To reduce errors and time spent on error-checking, it is recommended to use automatic list numbering instead of writing numbers manually. 
+
+___
+
+Also note that lists can be continued after a block of text:
+
+```
+  1.  A point
+containing multiple lines.
+
+          including code blocks
+
+      > and quote blocks
+
+  1. Second point (*continuation of the list*).
+```
+
+  1.  A point
+containing multiple lines.
+
+          including code blocks
+
+      > and quote blocks
+
+  1. Second point (*continuation of the list*).
+
+
+For more details read the [CommonMark documentation](https://spec.commonmark.org/0.30/#list-items).
 
 ### Links
 
@@ -118,7 +225,7 @@ For example, let us assume that your book comprises of two chapters that are loc
 └── chapter_2.md
 ```
 
-Then in your `chapter_1.md` file you can include a [link](./chapter_2.md) to a `chapter_2.md`.
+Then in your `chapter_1.md` file you can include a [link](./chapter_2.md) to the `chapter_2.md`.
 
 ### Multimedia
 
@@ -240,14 +347,6 @@ You can also align text in the columns by adding a colon (`:`) to the hyphens:
 :header: 1
 :file: ./csv/csv-example.csv
 ```
-
-### Horizontal Rule
-
-# TODO
-
-### Line Breaks
-
-# TODO
 
 ### Container blocks
 
