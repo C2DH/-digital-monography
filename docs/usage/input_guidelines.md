@@ -17,7 +17,7 @@ As an author, you are required to upload a package of a following structure:
 │   │   └── some-img-name.tiff
 │   └── part2-or-some-other-name/
 │       └── img1.jpg
-├── video/
+├── videos/
 │   └── part2-or-some-other-name/
 │       └── video-name.mp4
 └── csv/

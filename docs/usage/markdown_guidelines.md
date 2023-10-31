@@ -268,8 +268,24 @@ See the [MyST guide](https://mystmd.org/guide/figures#image-directive) for the i
 
 #### Videos
 
-# TODO
-<!-- [![Alternate Text]({image-url})]({video-url} "Link Title") -->
+[![Alternate Text]({image-url})]({video-url} "Link Title")
+
+```
+![](./videos/vid-sample.mp4)
+```
+
+#### Using directives to format your video <sup>(MyST feature)</sup>
+
+Similarily to handling images, a use of the MyST extended markdown syntax lets you add attributes to your file.
+
+:::{figure} ./videos/vid-sample.mp4
+:label: vid-sample
+:width: 250px
+:align: right
+You can add a caption to your video.
+:::
+
+For example, you can refer to your video using the [`vid-sample.mp4`](#vid-sample) syntax. 
 
 #### YouTube/Vimeo videos <sup>(MyST feature)</sup>
 
