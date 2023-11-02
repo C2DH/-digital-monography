@@ -218,7 +218,11 @@ For example, let us assume that your book comprises of two chapters that are loc
 └── chapter_2.md
 ```
 
-Then in your `chapter_1.md` file you can include a [link](./chapter_2.md) to the `chapter_2.md`.
+Then in your `chapter_1.md` file you can include a link to the `chapter_2.md` using the `[some-text](./chapter_2.md)`.
+
+| Syntax | Result |
+| --- | --- |
+| `[This text will be displayed](./diagrams.md)` | [This text will be displayed](./diagrams.md) |
 
 ### Multimedia
 
@@ -227,18 +231,10 @@ Then in your `chapter_1.md` file you can include a [link](./chapter_2.md) to the
 You can embed an image by linking to an image file.
 
 ```
-![Logo of the University](./img/university_of_luxembourg_logo_fr.svg)
+![Logo of the University](./img/uni_logo.png)
 ```
 
-![Logo of the University](./img/university_of_luxembourg_logo_fr.svg)
-
-A common use case is to add a caption under an image. You can even include a hyperlink to better describe the cited resource. Note that we can use the [cross-reference syntax]() to have an auto-incremented figure number.
-
-```
-![Logo of the University](./img/university_of_luxembourg_logo_fr.svg)Figure 1: logo of the University from the [wikipedia page](https://en.wikipedia.org/wiki/File:University_of_Luxembourg_logo_(fr).svg).
-```
-
-![Logo of the University](./img/university_of_luxembourg_logo_fr.svg)Figure 1: logo of the University from the [wikipedia page](https://en.wikipedia.org/wiki/File:University_of_Luxembourg_logo_(fr).svg).
+![Logo of the University](./img/uni_logo.png)
 
 #### Using directives to format your image <sup>(MyST feature)</sup>
 
@@ -247,42 +243,19 @@ The `image` directive allows you to customize:
 * `alignment`
 * `classes` to add to the image
 
-What is important, using MyST directives allows us to cross-reference our images within the content. This feature ensures that we won't have to manually increment references - the software will do that for us automatically. To enable cross-referencing, add a `label` attribute to a `{image}` directive with a name that you will use to reference the image (here: myst-img-example).
-
-```{image} https://source.unsplash.com/random/500x150?sunset
-:label: myst-img-example
-:width: 500px
-:align: center
 ```
-
-To reference this image [](#myst-img-example), use `[](#myst-img-example)` syntax.
-
-See the [MyST guide](https://mystmd.org/guide/figures#image-directive) for the implementation details.
-
-#### Videos
-
-[![Alternate Text]({image-url})]({video-url} "Link Title")
-
-```
-![](./videos/vid-sample.mp4)
-```
-
-#### Using directives to format your video <sup>(MyST feature)</sup>
-
-Similarily to handling images, a use of the MyST extended markdown syntax lets you add attributes to your file.
-
-:::{figure} ./videos/vid-sample.mp4
-:label: vid-sample
+:::{image} ./img/uni_logo.png
+:name: uni-logo
 :width: 250px
-:align: right
-You can add a caption to your video.
+:align: center
 :::
+```
 
-For example, you can refer to your video using the [`vid-sample.mp4`](#vid-sample) syntax. 
-
-#### YouTube/Vimeo videos <sup>(MyST feature)</sup>
-
-If your video is hosted on one of supported platforms (at the time of writing of this document: on YouTube and on Vimeo) you can embed the video using the url. Please read the [MyST guide](https://mystmd.org/guide/figures#youtube-videos) for more details.
+:::{image} ./img/uni_logo.png
+:name: uni-logo
+:width: 250px
+:align: center
+:::
 
 ### Footnotes <sup>(MyST feature)</sup>
 
@@ -402,11 +375,15 @@ Block of text that is separated from the rest of the page.
 :::
 ```
 
+:::{tip} _Title_ of the block
+Block of text that is separated from the rest of the page.
+:::
+
 See the [MyST guide](https://mystmd.org/guide/admonitions) for the implementation details.
 
 ### Math <sup>(MyST feature)</sup>
 
-MyST syntax derives from the $\hologo{LaTeX}$. To get started with the math syntax, please see the [documentation](https://www.latex-project.org/help/documentation/).
+MyST syntax derives from the ${LaTeX}$. To get started with the math syntax, please see the [documentation](https://www.latex-project.org/help/documentation/).
 See the [MyST guide](https://mystmd.org/guide/math) for more details on the MyST implementation.
 
 #### Inline math <sup>(MyST feature)</sup>
@@ -432,40 +409,15 @@ $$
 
 $$ \label{one-liner} Ax=b $$
 
-#### Referencing equations <sup>(MyST feature)</sup>
-
-Similarily to cross-referencing images, we can use `label` attribute to reference an equation and reference it [](#euler-identity-equation) in our book/article using the `[](#euler-identity-equation)` syntax.
-
-We can even reference a specific equation [](#maxwell) (or [](#one-liner)) in a set of equations.
-
 #### Proofs, Theorems and Algorithms <sup>(MyST feature)</sup>
 
-Please see the [documentation](https://mystmd.org/guide/proofs-and-theorems) on the additional syntax for proofs, theorems and algorithms.
+##### TODO
+
+* https://mystmd.org/guide/proofs-and-theorems
 
 ### Diagrams <sup>(MyST feature)</sup>
 
-It is possible include [mermaid diagrams](https://mermaid.js.org/) in your book/article. For the time of writing this guidelines, the supported diagrams include
-* flowcharts
-* sequence diagrams
-* class diagrams
-* state diagrams
-* entity relationship diagrams
-* user journey diagrams
-* Gantt
-* pie charts
-* quadrant charts
-* requirement diagram
-* Gitgraph (Git) diagrams
-* C4 diagrams
-* mindmaps
-* timeline
-* Zenuml
-* Sankey
-* XYCharts
-
-To include the mermaid diagrams, use the `{mermaid}` directive.
-
-Be sure to check the [mermaid documentation](https://mermaid.js.org/intro/getting-started.html) and the [MyST guide](https://mystmd.org/guide/diagrams) for the more information.
+##### TODO
 
 ### Citations <sup>(MyST feature)</sup>
 
@@ -489,7 +441,6 @@ For more information, see the [MyST guide](https://mystmd.org/guide/citations).
 :::{glossary}
 Some term
 : some term that need to be defined.
-
 Definiendum
 : an expression that is being defined.
 :::
@@ -498,13 +449,19 @@ A use of glossaries enables us to reference certain terms in our books/articles.
 
 Please see the [MyST guide](https://mystmd.org/guide/glossaries-and-terms) on how to create a glossary.
 
+### Cross-referencing
+
+##### TODO
+
+* https://myst-parser.readthedocs.io/en/latest/syntax/cross-referencing.html
+
 ### Interactive notebooks (code blocks)
 
-# TODO
+##### TODO
 
-https://mystmd.org/guide/interactive-notebooks
-https://mystmd.org/guide/reuse-jupyter-outputs
-https://mystmd.org/guide/integrating-jupyter
+* https://mystmd.org/guide/interactive-notebooks
+* https://mystmd.org/guide/reuse-jupyter-outputs
+* https://mystmd.org/guide/integrating-jupyter
 
 ## Disclaimer
 
