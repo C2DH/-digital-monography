@@ -9,6 +9,7 @@ from utils import (
     BookMetadata,
     TableOfContents,
     config_logging,
+    copy_static_files,
     create_book_subdir,
     subprocess_run_and_log,
 )
@@ -70,5 +71,9 @@ if __name__ == "__main__":
     jb_toc = bc.jb_toc
     slug = bc.slug
     create_book_subdir("ipynb", slug)
+    copy_static_files(
+        pathlib.Path(DATA_DIR) / "md" / args.project_path.name,
+        pathlib.Path(DATA_DIR) / "ipynb" / args.project_path.name,
+    )
     _copy_content_files(slug, jb_config, jb_toc)
     _transform_to_ipynb(slug, jb_config, jb_toc)

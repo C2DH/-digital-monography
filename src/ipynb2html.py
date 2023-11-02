@@ -13,6 +13,7 @@ from utils import (
     BookMetadata,
     TableOfContents,
     config_logging,
+    copy_static_files,
     create_book_subdir,
     subprocess_run_and_log,
 )
@@ -109,6 +110,10 @@ if __name__ == "__main__":
     jb_toc = bc.jb_toc
     slug = bc.slug
     create_book_subdir("jb", slug)
+    copy_static_files(
+        pathlib.Path(DATA_DIR) / "ipynb" / args.project_path.name,
+        pathlib.Path(DATA_DIR) / "jb" / args.project_path.name,
+    )
     _generate_yaml_files(slug, jb_config, jb_toc)
     _copy_bibliography_files(slug, args.project_path, jb_config)
     _copy_content_files(slug)

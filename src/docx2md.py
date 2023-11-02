@@ -8,6 +8,7 @@ from utils import (
     BookConfigParser,
     TableOfContents,
     config_logging,
+    copy_static_files,
     create_book_subdir,
 )
 
@@ -58,4 +59,8 @@ if __name__ == "__main__":
     jb_toc = bc.jb_toc
     slug = bc.slug
     create_book_subdir("md", slug)
+    copy_static_files(
+        args.project_path,
+        pathlib.Path(DATA_DIR) / "md" / args.project_path.name,
+    )
     _copy_content_files(args.project_path, jb_toc)
