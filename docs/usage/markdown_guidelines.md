@@ -18,6 +18,8 @@ This document is meant as guidelines of features supported by our tool. It mostl
 
 ### Headers
 
+**Syntax**
+
 ```
 # Chapter 1 title
 ## Chapter 1 second header
@@ -25,6 +27,8 @@ This document is meant as guidelines of features supported by our tool. It mostl
 #### Chapter 1 section title
 ##### Chapter 1 section second header
 ```
+
+**Result**
 
 # Chapter 1 title
 ## Chapter 1 second header
@@ -51,52 +55,47 @@ Such indentation has a special meaning. Using it might lead to unindended format
 
 #### Italics
 
-```
-To write in italics, use single *asterisks* or _underscores_.
-```
-
-To write in italics, use single *asterisks* or _underscores_.
+| Syntax | Result |
+| --- | --- |
+| `To write in italics, use single *asterisks* or _underscores_.` | To write in italics, use single *asterisks* or _underscores_. |
 
 #### Bold
 
-```
-You can make text bold with double **asterisks** or __underscores__.
-```
-
-You can make text bold with **asterisks** or __underscores__.
+| Syntax | Result |
+| --- | --- |
+| `You can make text bold with double **asterisks** or __underscores__.` | You can make text bold with double **asterisks** or __underscores__. |
 
 #### Escaping symbols
 
-```
 Sometimes you might want to use \*asterisks\*, \_\_underscores\_\_, etc. without special formatting. To do this, place the backslash (`\`) before a special character.
-```
 
-Sometimes you might want to use \*asterisks\*, \_\_underscores\_\_, etc. without special formatting. To do this, place the backslash (`\`) before a special character.
+| Syntax | Result |
+| --- | --- |
+| `\*asterisks\*` | \*asterisks\* |
+| `\_\_underscores\_\_` | \_\_underscores\_\_ |
 
 #### Subscript
 
-```
-H{sub}`2`O
-```
-
-H{sub}`2`O
+| Syntax | Result |
+| --- | --- |
+| ```H{sub}`2`O``` | H{sub}`2`O |
 
 #### Superscript
 
-```
-11{sup}`th` of November
-```
-
-11{sup}`th` of November
+| Syntax | Result |
+| --- | --- |
+| ```11{sup}`th` of November``` | 11{sup}`th` of November |
 
 ### Horizontal Rule
 
 To indicate section breaks in your work, you can use the horizontal rule. To form a visible break within a part of your book/article, use `***`, `---` or `___`.
 
+**Syntax**
+
 ```
 Text
 ***
-More text (note that we have to put blank lines around the horizontal lines.
+More text (note that we have to put blank lines around the horizontal lines).
 
 ---
 
@@ -104,9 +103,11 @@ Even more text
 ___
 ```
 
+**Result**
+
 Text
 ***
-More text (note that we have to put blank lines around the horizontal lines.
+More text (note that we have to put blank lines around the horizontal lines).
 
 ---
 
@@ -117,21 +118,27 @@ ___
 
 #### Bullet list marker
 
+A list containing non-ordered bullet points can be constructed with the following characters at the beginning of a line.
+
+**Syntax**
+
 ```
-A list containing non-ordered bullet points can be constructed with the following characters at the beginning of a line:
-- `-` 
-+ `+` 
-* `*` 
+- you can use `-` character
++ you can use `+` character
+* you can use `*` character
 ```
 
-A list containing non-ordered bullet points can be constructed with the following characters at the beginning of a line:
-- `-` 
-+ `+` 
-* `*` 
+**Result**
+
+- you can use `-` character
++ you can use `+` character
+* you can use `*` character
 
 ___
 
 Lists can be indented using double spaces (`  `):
+
+**Syntax**
 
 ```
 - point 1.
@@ -140,6 +147,8 @@ Lists can be indented using double spaces (`  `):
       - point 1.4.
 - point 2.
 ```
+
+**Result**
 
 - point 1.
   - point 1.2. 
@@ -151,11 +160,15 @@ Lists can be indented using double spaces (`  `):
 
 An ordered list can be written using an arabic numbered followed by `.` or `)`.
 
+**Syntax**
+
 ```
 1. First item.
 1. Second item.
 1. Third item.
 ```
+
+**Result**
 
 1. First item.
 1. Second item.
@@ -167,6 +180,8 @@ ___
 
 Also note that lists can be continued after a block of text:
 
+**Syntax**
+
 ```
   1.  A point
 containing multiple lines.
@@ -177,6 +192,8 @@ containing multiple lines.
 
   1. Second point (*continuation of the list*).
 ```
+
+**Result**
 
   1.  A point
 containing multiple lines.
@@ -194,17 +211,17 @@ For more details read the [CommonMark documentation](https://spec.commonmark.org
 
 #### Links to external resources
 
-```
-You can just paste a link to an external resource, e.g. to https://spec.commonmark.org/0.30/#links
-```
+You can just paste a link to an external resource.
 
-You can just paste a link to an external resource, e.g. to https://spec.commonmark.org/0.30/#links
+| Syntax | Result |
+| --- | --- |
+| `Link to https://spec.commonmark.org/0.30/#links` | Link to https://spec.commonmark.org/0.30/#links |
 
-```
-You can include a link with a [link text](https://spec.commonmark.org/0.30/#link-text) and a hidden link destination
-```
+You can include a link with a link text and a hidden link destination.
 
-You can include a link with a [link text](https://spec.commonmark.org/0.30/#link-text) and a hidden link destination
+| Syntax | Result |
+| --- | --- |
+| `[Some link text](https://www.uni.lu/en/)` | [Some link text](https://www.uni.lu/en/) |
 
 #### Links to internal resources
 
@@ -230,11 +247,15 @@ Then in your `chapter_1.md` file you can include a link to the `chapter_2.md` us
 
 You can embed an image by linking to an image file.
 
-```
+<!-- ```
 ![Logo of the University](./img/uni_logo.png)
 ```
 
-![Logo of the University](./img/uni_logo.png)
+![Logo of the University](./img/uni_logo.png) -->
+
+| Syntax | Result |
+| --- | --- |
+| `![Logo of the University](./img/uni_logo.png)` | ![Logo of the University](./img/uni_logo.png) |
 
 #### Using directives to format your image <sup>(MyST feature)</sup>
 
@@ -243,17 +264,21 @@ The `image` directive allows you to customize:
 * `alignment`
 * `classes` to add to the image
 
+**Syntax**
+
 ```
 :::{image} ./img/uni_logo.png
 :name: uni-logo
-:width: 250px
+:width: 100px
 :align: center
 :::
 ```
 
+**Result**
+
 :::{image} ./img/uni_logo.png
 :name: uni-logo
-:width: 250px
+:width: 100px
 :align: center
 :::
 
@@ -279,12 +304,16 @@ For tables, MyST uses the [GitHub Markdown syntax](https://github.github.com/gfm
 
 To add a table, use three or more hyphens (`---`) to create each column’s header, and use pipe characters (`|`) to separate each column. You should also add a pipe character on the start and the end of each row.
 
+**Syntax**
+
 ```
 | Header 1        | Header 2        |
 | --------------- | --------------- |
 | Row 1, Column 1 | Row 1, Column 2 |
 | Row 2, Column 1 | Row 2, Column 2 |
 ```
+
+**Result**
 
 | Header 1        | Header 2        |
 | --------------- | --------------- |
@@ -293,12 +322,16 @@ To add a table, use three or more hyphens (`---`) to create each column’s head
 
 You don't have to be strict with formatting the table, as long as you use the proper syntax. For example, the following table will be rendered the same as the one above.
 
+**Syntax**
+
 ```
 | Header 1| Header 2 |
 | --- | -------- |
 | Row 1, Column 1 | Row 1, Column 2 |
 | Row 2, Column 1 | Row 2, Column 2 |
 ```
+
+**Result**
 
 | Header 1| Header 2 |
 | --- | -------- |
@@ -311,11 +344,15 @@ You can also align text in the columns by adding a colon (`:`) to the hyphens:
 * `:---:` - center
 * `---:` - align right
 
+**Syntax**
+
 ```
 | Align left | Center | Align right |
 | :---       | :---:  | ---:        |
 | Text       | Text   | Text        |
 ```
+
+**Result**
 
 | Align left | Center | Align right |
 | :---       | :---:  | ---:        |
@@ -323,11 +360,15 @@ You can also align text in the columns by adding a colon (`:`) to the hyphens:
 
 #### CSV tables <sup>(MyST feature)</sup>
 
+**Syntax**
+
 ```
 :::{csv-table} Example of a csv table
 :file: ./csv/csv-example.csv
 :::
 ```
+
+**Result**
 
 :::{csv-table} Example of a csv table
 :file: ./csv/csv-example.csv
@@ -339,11 +380,19 @@ See the [MyST parser documentation](https://myst-parser.readthedocs.io/en/latest
 
 #### Block quotes
 
+**Syntax**
+
+You can insert a block of text separate from the rest of the page with a use of the `> ` syntax.
+
 ```
-> You can insert a block of text separate from the rest of the page with a use of the `> ` syntax.
+> Example of the `> ` syntax.
 ```
 
-> You can insert a block of text separate from the rest of the page with a use of the `> ` syntax.
+**Result**
+
+> Example of the `> ` syntax.
+
+**Syntax**
 
 ```
 > You **can** also use *markdown* in your block quotes.
@@ -354,6 +403,8 @@ See the [MyST parser documentation](https://myst-parser.readthedocs.io/en/latest
 > use `-` character to specify the author of a given quote.
 > - Author Unknown
 ```
+
+**Result**
 
 > You **can** use *markdown* in your block quotes.
 > 
@@ -369,13 +420,17 @@ See the details in the [CommonMark specification](https://spec.commonmark.org/0.
 
 > Admonitions highlight a particular block of text that exists slightly apart from the narrative of your page, such as a note or a warning.
 
+**Syntax**
+
 ```
-:::{tip} _Title_ of the block
+:::{tip}
 Block of text that is separated from the rest of the page.
 :::
 ```
 
-:::{tip} _Title_ of the block
+**Result**
+
+:::{tip}
 Block of text that is separated from the rest of the page.
 :::
 
@@ -388,16 +443,47 @@ See the [MyST guide](https://mystmd.org/guide/math) for more details on the MyST
 
 #### Inline math <sup>(MyST feature)</sup>
 
-The most famous equation is {math}`e=mc^2`.
+| Syntax | Result |
+| --- | --- |
+| ```{math}`e=mc^2` ``` | {math}`e=mc^2` |
+
+<!-- {math}`e=mc^2`. -->
 
 #### Equation blocks <sup>(MyST feature)</sup>
 
-```{math}
+**Syntax**
+
+```
+:::{math}
 :label: euler-identity-equation
 e^{i\pi}+1 =0
+:::
 ```
 
+**Result**
+
+:::{math}
+:label: euler-identity-equation
+e^{i\pi}+1 =0
+:::
+
 #### Dollar math equation <sup>(MyST feature)</sup>
+
+**Syntax**
+
+```
+$$
+\label{maxwell}
+\begin{aligned}
+\nabla \times \vec{e}+\frac{\partial \vec{b}}{\partial t}&=0 \\
+\nabla \times \vec{h}-\vec{j}&=\vec{s}\_{e}
+\end{aligned}
+$$
+
+$$ \label{one-liner} Ax=b $$
+```
+
+**Result**
 
 $$
 \label{maxwell}
@@ -438,14 +524,35 @@ For more information, see the [MyST guide](https://mystmd.org/guide/citations).
 
 ### Glossaries, Terms and Abbreviations
 
-:::{glossary}
+**Syntax**
+
+:::
+```{glossary}
 Some term
 : some term that need to be defined.
-Definiendum
-: an expression that is being defined.
+Sepulcas
+: objects used for sepuling.
+Horses
+: a horse is a horse, of course
+```
 :::
 
-A use of glossaries enables us to reference certain terms in our books/articles.For example, we can now reference {term}`definiendum`.
+**Result**
+
+```{glossary}
+Some term
+: some term that need to be defined.
+Sepulcas
+: objects used for sepuling.
+Horses
+: a horse is a horse, of course
+```
+
+A use of glossaries enables us to reference certain terms in our books/articles. For example, we can now reference {term}`sepulcas`.
+
+| Syntax | Result |
+| --- | --- |
+| ```{term}`sepulcas` ``` | {term}`sepulcas` |
 
 Please see the [MyST guide](https://mystmd.org/guide/glossaries-and-terms) on how to create a glossary.
 
