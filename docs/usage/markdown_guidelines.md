@@ -507,15 +507,23 @@ Please see the [MyST guide](https://mystmd.org/guide/glossaries-and-terms) on ho
 
 ### Footnotes <sup>(MyST feature)</sup>
 
-```
 Using MyST[^ref-to-footnotes] variant enables us to use footnotes in our markdown files.
 
-[^ref-to-footnotes]: Please note the syntax of the footnotes. `My content.[^some-text]` in your content's body and `[^some-text]: Footnote.` after it.
+Please note the syntax of the footnotes. `My content.[^some-text]` in your content's body and `[^some-text]: Footnote.` after it.
+
+[^ref-to-footnotes]: A first footnote.
+
+**Syntax**
+
+```
+My content.[^some-text]
+[^some-text]: A second footnote.
 ```
 
-Using MyST[^ref-to-footnotes] variant enables us to use footnotes in our markdown files.
+**Result**
 
-[^ref-to-footnotes]: Please note the syntax of the footnotes. `My content.[^some-text]` in your content's body and `[^some-text]: Footnote.` after it.
+My content.[^some-text]
+[^some-text]: A second footnote.
 
 See the [the MyST guide](https://mystmd.org/guide/typography#footnotes) for more details.
 
