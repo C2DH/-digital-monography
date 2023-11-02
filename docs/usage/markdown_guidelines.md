@@ -350,12 +350,17 @@ You can also align text in the columns by adding a colon (`:`) to the hyphens:
 
 #### CSV tables <sup>(MyST feature)</sup>
 
-```{csv-table} Example of a csv table
-:widths: 5, 15, 5, 5, 5
-:align: "center", "left", "right", "right", "right"
-:header: 1
-:file: ./csv/csv-example.csv
 ```
+:::{csv-table} Example of a csv table
+:file: ./csv/csv-example.csv
+:::
+```
+
+:::{csv-table} Example of a csv table
+:file: ./csv/csv-example.csv
+:::
+
+See the [MyST parser documentation](https://myst-parser.readthedocs.io/en/latest/syntax/tables.html#csv-tables) for more details.
 
 ### Container blocks
 
