@@ -338,26 +338,6 @@ You don't have to be strict with formatting the table, as long as you use the pr
 | Row 1, Column 1 | Row 1, Column 2 |
 | Row 2, Column 1 | Row 2, Column 2 |
 
-
-You can also align text in the columns by adding a colon (`:`) to the hyphens:
-* `:---` - align left
-* `:---:` - center
-* `---:` - align right
-
-**Syntax**
-
-```
-| Align left | Center | Align right |
-| :---       | :---:  | ---:        |
-| Text       | Text   | Text        |
-```
-
-**Result**
-
-| Align left | Center | Align right |
-| :---       | :---:  | ---:        |
-| Text       | Text   | Text        |
-
 #### CSV tables <sup>(MyST feature)</sup>
 
 **Syntax**
