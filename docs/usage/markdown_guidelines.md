@@ -45,7 +45,8 @@ It is recommended to divide each paragraph with an empty line.
 Please remember that reading continuous blocks of text from a screen can be more eye-straining than reading it from a book.
 
 ```
-    Do not add tabs or spaces at the start of a paragraph. Such indentation has a special meaning. Using it might lead to unindended formatting.
+    Do not add tabs or spaces at the start of a paragraph.
+Such indentation has a special meaning. Using it might lead to unindended formatting.
 ```
 
 #### Italics
@@ -64,21 +65,13 @@ You can make text bold with double **asterisks** or __underscores__.
 
 You can make text bold with **asterisks** or __underscores__.
 
-#### Strikethrough
-
-```
-Strikethrough with ~~two tildes~~.
-```
-
-Strikethrough with ~~two tildes~~.
-
 #### Escaping symbols
 
 ```
-Sometimes you might want to use \*asterisks\*, \_\_underscores\_\_, \~\~tildes\~\~, etc. without special formatting. To do this, place the backslash (`\`) before a special character.
+Sometimes you might want to use \*asterisks\*, \_\_underscores\_\_, etc. without special formatting. To do this, place the backslash (`\`) before a special character.
 ```
 
-Sometimes you might want to use \*asterisks\*, \_\_underscores\_\_, \~\~tildes\~\~, etc. without special formatting. To do this, place the backslash (`\`) before a special character.
+Sometimes you might want to use \*asterisks\*, \_\_underscores\_\_, etc. without special formatting. To do this, place the backslash (`\`) before a special character.
 
 #### Subscript
 
