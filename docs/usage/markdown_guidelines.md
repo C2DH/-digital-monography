@@ -14,7 +14,7 @@
 
 **Result**
 
-# Chapter 1 title
+# Chapter 1 title (only an example of heading syntax)
 ## Chapter 1 second header
 ### Chapter 1 third header
 #### Chapter 1 section title
@@ -230,12 +230,6 @@ Then in your `chapter_1.md` file you can include a link to the `chapter_2.md` us
 ### Images
 
 You can embed an image by linking to an image file.
-
-<!-- ```
-![Logo of the University](./img/uni_logo.png)
-```
-
-![Logo of the University](./img/uni_logo.png) -->
 
 | Syntax | Result |
 | --- | --- |
@@ -561,6 +555,17 @@ A use of glossaries enables us to reference certain terms in our books/articles.
 
 Please see the [MyST guide](https://mystmd.org/guide/glossaries-and-terms) on how to create a glossary.
 
+## Table of contents
+
+Our software allows you to automatically generate and display table of contents. Note that the structure of the document will be determined by the heading and not by your configuration file.
+
+**Syntax**
+
+```
+:::{tableofcontents}
+:::
+```
+
 ## Footnotes <sup>(MyST feature)</sup>
 
 Using MyST[^ref-to-footnotes] variant enables us to use footnotes in our markdown files.
@@ -614,6 +619,6 @@ For more information, see the [MyST guide](https://mystmd.org/guide/citations).
 * https://mystmd.org/guide/reuse-jupyter-outputs
 * https://mystmd.org/guide/integrating-jupyter
 
-# Disclaimer
+## Disclaimer
 
 This guidelines were prepared in Q4 2023 for CommonMark v0.30 and MyST v0.0.4. and are up to date as of the date of writing of this document. The guidelines herein and the Markdown specification is provided "as is", without warranty of any kind, express or implied.
