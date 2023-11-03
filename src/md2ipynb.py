@@ -55,6 +55,11 @@ def _transform_to_ipynb(
             jupytext --test notebook.ipynb --to py:percent
         Test the ipynb -> (py:percent + ipynb) -> ipynb (à la paired notebook) conversion
             jupytext --test --update notebook.ipynb --to py:percent
+
+    ...
+    We probaly do not need a whole jupytext to transform MD to Jupyter Notebook
+    Just play around with this script.
+    https://github.com/mwouts/jupytext/blob/710be91745361fc9010e204cb1c450ed3c4a39c5/src/jupytext/myst.py#L257C5-L257C21
     """
     for ch in jb_toc.get("chapters", []):
         fn = f"{DATA_DIR}/ipynb/{slug}/{ch['file']}"

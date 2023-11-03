@@ -51,6 +51,10 @@ docker compose exec main python src/md2ipynb.py
 docker compose exec main python src/ipynb2html.py
 ```
 
+### Transform ... to JATS .xml
+
+[myst-to-jats](https://github.com/executablebooks/mystmd/tree/main/packages/myst-to-jats) can convert a MyST AST to JATS XML.
+
 ### Transform .html to .pdf
 
 ```sh
