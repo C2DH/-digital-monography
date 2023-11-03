@@ -1,22 +1,6 @@
 # Markdown guidelines
 
-## Introduction
-
-### What is Markdown
-
-> Markdown is a plain text format for writing structured documents [...] The overriding design goal for Markdown’s formatting syntax is to make it as readable as possible. The idea is that a Markdown-formatted document should be publishable as-is, as plain text, without looking like it’s been marked up with tags or formatting instructions.
-
-### Markdown's variant
-
-The project supports MyST markdown, which is a superset of the CommonMark, a variant of the Markdown markup language. 
-
-### This document
-
-This document is meant as guidelines of features supported by our tool. It mostly repeats after the original specifiactions for [CommonMark](https://spec.commonmark.org/) and [MyST](https://github.com/executablebooks/myst-spec). Please treat the original specifications as an ultimate source of truth and this document as a way of facilitating user experience with our tool.
-
-## Main features
-
-### Headers
+## Headers
 
 **Syntax**
 
@@ -40,9 +24,9 @@ More than six `#` characters is not a heading.
 
 For more details please read [the specification](https://spec.commonmark.org/0.30/#atx-heading). It might be also useful to read ["how headers and sections map onto to book structure"](https://jupyterbook.org/en/stable/structure/sections-headers.html#how-headers-and-sections-map-onto-to-book-structure).
 
-### Typography
+## Typography
 
-#### Paragraphs
+### Paragraphs
 
 It is recommended to divide each paragraph with an empty line.
 
@@ -53,19 +37,19 @@ Please remember that reading continuous blocks of text from a screen can be more
 Such indentation has a special meaning. Using it might lead to unindended formatting.
 ```
 
-#### Italics
+### Italics
 
 | Syntax | Result |
 | --- | --- |
 | `To write in italics, use single *asterisks* or _underscores_.` | To write in italics, use single *asterisks* or _underscores_. |
 
-#### Bold
+### Bold
 
 | Syntax | Result |
 | --- | --- |
 | `You can make text bold with double **asterisks** or __underscores__.` | You can make text bold with double **asterisks** or __underscores__. |
 
-#### Escaping symbols
+### Escaping symbols
 
 Sometimes you might want to use \*asterisks\*, \_\_underscores\_\_, etc. without special formatting. To do this, place the backslash (`\`) before a special character.
 
@@ -74,19 +58,19 @@ Sometimes you might want to use \*asterisks\*, \_\_underscores\_\_, etc. without
 | `\*asterisks\*` | \*asterisks\* |
 | `\_\_underscores\_\_` | \_\_underscores\_\_ |
 
-#### Subscript
+### Subscript
 
 | Syntax | Result |
 | --- | --- |
 | ```H{sub}`2`O``` | H{sub}`2`O |
 
-#### Superscript
+### Superscript
 
 | Syntax | Result |
 | --- | --- |
 | ```11{sup}`th` of November``` | 11{sup}`th` of November |
 
-### Horizontal Rule
+## Horizontal Rule
 
 To indicate section breaks in your work, you can use the horizontal rule. To form a visible break within a part of your book/article, use `***`, `---` or `___`.
 
@@ -114,9 +98,9 @@ More text (note that we have to put blank lines around the horizontal lines).
 Even more text
 ___
 
-### Lists
+## Lists
 
-#### Bullet list marker
+### Bullet list marker
 
 A list containing non-ordered bullet points can be constructed with the following characters at the beginning of a line.
 
@@ -156,7 +140,7 @@ Lists can be indented using double spaces (`  `):
       - point 1.4.
 - point 2.
 
-#### Ordered list marker
+### Ordered list marker
 
 An ordered list can be written using an arabic numbered followed by `.` or `)`.
 
@@ -207,9 +191,9 @@ containing multiple lines.
 
 For more details read the [CommonMark documentation](https://spec.commonmark.org/0.30/#list-items).
 
-### Links
+## Links
 
-#### Links to external resources
+### Links to external resources
 
 You can just paste a link to an external resource.
 
@@ -223,7 +207,7 @@ You can include a link with a link text and a hidden link destination.
 | --- | --- |
 | `[Some link text](https://www.uni.lu/en/)` | [Some link text](https://www.uni.lu/en/) |
 
-#### Links to internal resources
+### Links to internal resources
 
 You can also have a link to a specified part of your work.
 
@@ -241,9 +225,9 @@ Then in your `chapter_1.md` file you can include a link to the `chapter_2.md` us
 | --- | --- |
 | `[This text will be displayed](./diagrams.md)` | [This text will be displayed](./diagrams.md) |
 
-### Multimedia
+## Multimedia
 
-#### Images
+### Images
 
 You can embed an image by linking to an image file.
 
@@ -257,7 +241,7 @@ You can embed an image by linking to an image file.
 | --- | --- |
 | `![Logo of the University](./img/uni_logo.png)` | ![Logo of the University](./img/uni_logo.png) |
 
-#### Using directives to format your image <sup>(MyST feature)</sup>
+### Using directives to format your image <sup>(MyST feature)</sup>
 
 The `image` directive allows you to customize:
 * `width`
@@ -282,9 +266,9 @@ The `image` directive allows you to customize:
 :align: center
 :::
 
-### Tables <sup>(MyST feature)</sup>
+## Tables <sup>(MyST feature)</sup>
 
-#### Markdown tables <sup>(MyST feature)</sup>
+### Markdown tables <sup>(MyST feature)</sup>
 
 For tables, MyST uses the [GitHub Markdown syntax](https://github.github.com/gfm/#tables-extension-).
 
@@ -324,7 +308,7 @@ You don't have to be strict with formatting the table, as long as you use the pr
 | Row 1, Column 1 | Row 1, Column 2 |
 | Row 2, Column 1 | Row 2, Column 2 |
 
-#### CSV tables <sup>(MyST feature)</sup>
+### CSV tables <sup>(MyST feature)</sup>
 
 **Syntax**
 
@@ -342,9 +326,9 @@ You don't have to be strict with formatting the table, as long as you use the pr
 
 See the [MyST parser documentation](https://myst-parser.readthedocs.io/en/latest/syntax/tables.html#csv-tables) for more details.
 
-### Container blocks
+## Container blocks
 
-#### Block quotes
+### Block quotes
 
 **Syntax**
 
@@ -382,7 +366,7 @@ You can insert a block of text separate from the rest of the page with a use of 
 
 See the details in the [CommonMark specification](https://spec.commonmark.org/0.30/#block-quotes).
 
-#### Admonitions <sup>(MyST feature)</sup>
+### Admonitions <sup>(MyST feature)</sup>
 
 > Admonitions highlight a particular block of text that exists slightly apart from the narrative of your page, such as a note or a warning.
 
@@ -474,12 +458,12 @@ Text.
 
 See the [MyST guide](https://mystmd.org/guide/admonitions) for the implementation details.
 
-### Math <sup>(MyST feature)</sup>
+## Math <sup>(MyST feature)</sup>
 
 MyST syntax derives from the ${LaTeX}$. To get started with the math syntax, please see the [documentation](https://www.latex-project.org/help/documentation/).
 See the [MyST guide](https://mystmd.org/guide/math) for more details on the MyST implementation.
 
-#### Inline math <sup>(MyST feature)</sup>
+### Inline math <sup>(MyST feature)</sup>
 
 | Syntax | Result |
 | --- | --- |
@@ -487,7 +471,7 @@ See the [MyST guide](https://mystmd.org/guide/math) for more details on the MyST
 
 <!-- {math}`e=mc^2`. -->
 
-#### Equation blocks <sup>(MyST feature)</sup>
+### Equation blocks <sup>(MyST feature)</sup>
 
 **Syntax**
 
@@ -505,7 +489,7 @@ e^{i\pi}+1 =0
 e^{i\pi}+1 =0
 :::
 
-#### Dollar math equation <sup>(MyST feature)</sup>
+### Dollar math equation <sup>(MyST feature)</sup>
 
 **Syntax**
 
@@ -533,17 +517,17 @@ $$
 
 $$ \label{one-liner} Ax=b $$
 
-#### Proofs, Theorems and Algorithms <sup>(MyST feature)</sup>
+### Proofs, Theorems and Algorithms <sup>(MyST feature)</sup>
 
-##### TODO
+#### TODO
 
 * https://mystmd.org/guide/proofs-and-theorems
 
-### Diagrams <sup>(MyST feature)</sup>
+## Diagrams <sup>(MyST feature)</sup>
 
-##### TODO
+#### TODO
 
-### Glossaries, Terms and Abbreviations
+## Glossaries, Terms and Abbreviations
 
 **Syntax**
 
@@ -577,7 +561,7 @@ A use of glossaries enables us to reference certain terms in our books/articles.
 
 Please see the [MyST guide](https://mystmd.org/guide/glossaries-and-terms) on how to create a glossary.
 
-### Footnotes <sup>(MyST feature)</sup>
+## Footnotes <sup>(MyST feature)</sup>
 
 Using MyST[^ref-to-footnotes] variant enables us to use footnotes in our markdown files.
 
@@ -599,7 +583,7 @@ My content.[^some-text]
 
 See the [the MyST guide](https://mystmd.org/guide/typography#footnotes) for more details.
 
-### Citations <sup>(MyST feature)</sup>
+## Citations <sup>(MyST feature)</sup>
 
 One of the requirements for a publication in this system is inclusion of a bibliography writen in the BibTeX syntax. We highly recommend managing your bibliographies using the [Zotero tool](https://www.zotero.org/), exporting `.bib` file and uploading this file alongside the rest of your book/article.
 
@@ -616,20 +600,20 @@ To cite your sources, use the syntax @author. Here are some ways in which you ma
 
 For more information, see the [MyST guide](https://mystmd.org/guide/citations).
 
-### Cross-referencing
+## Cross-referencing
 
-##### TODO
+#### TODO
 
 * https://myst-parser.readthedocs.io/en/latest/syntax/cross-referencing.html
 
-### Interactive notebooks (code blocks)
+## Interactive notebooks (code blocks)
 
-##### TODO
+#### TODO
 
 * https://mystmd.org/guide/interactive-notebooks
 * https://mystmd.org/guide/reuse-jupyter-outputs
 * https://mystmd.org/guide/integrating-jupyter
 
-## Disclaimer
+# Disclaimer
 
 This guidelines were prepared in Q4 2023 for CommonMark v0.30 and MyST v0.0.4. and are up to date as of the date of writing of this document. The guidelines herein and the Markdown specification is provided "as is", without warranty of any kind, express or implied.
