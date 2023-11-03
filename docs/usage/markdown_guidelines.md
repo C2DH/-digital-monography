@@ -590,18 +590,7 @@ See the [the MyST guide](https://mystmd.org/guide/typography#footnotes) for more
 
 ## Citations <sup>(MyST feature)</sup>
 
-One of the requirements for a publication in this system is inclusion of a bibliography writen in the BibTeX syntax. We highly recommend managing your bibliographies using the [Zotero tool](https://www.zotero.org/), exporting `.bib` file and uploading this file alongside the rest of your book/article.
-
-To cite your sources, use the syntax @author. Here are some ways in which you may want to format your citations (remember to follow the publisher guidelines and to stay consistent):
-
-| Example | Render | Note |
-|---|---|---|
-| @Someone | @Someone | Citation without brackets |
-| [@Someone] | [@Someone] | Citation with brackets (**recommended**) |
-| [@Someone; @SthElse2020] | [@Someone; @SthElse2020] | Multiple citations |
-| [@Someone, p. 100] | [@Someone, p. 100] | Page number as a suffix example |
-| [@Someone, chap. 2] | [@Someone, chap. 2] | Chapter as a suffix example |
-| [e.g. @Someone, p. 100; @SthElse2020] | [e.g. @Someone, p. 100; @SthElse2020] | Example of 'e.g.' prefix |
+#### TODO
 
 For more information, see the [MyST guide](https://mystmd.org/guide/citations).
 
