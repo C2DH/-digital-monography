@@ -12,4 +12,5 @@ def create_book_subdir(ftype: str, slug: str) -> None:
 
 def copy_static_files(src: pathlib.PurePath, dst: pathlib.PurePath):
     for dir in STATIC_DIR_NAMES:
-        shutil.copytree(src / dir, dst / dir)
+        if (src / dir).exists():
+            shutil.copytree(src / dir, dst / dir, dirs_exist_ok=True)

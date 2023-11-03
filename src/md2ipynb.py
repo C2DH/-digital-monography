@@ -58,6 +58,9 @@ def _transform_to_ipynb(
     """
     for ch in jb_toc.get("chapters", []):
         fn = f"{DATA_DIR}/ipynb/{slug}/{ch['file']}"
+        # subprocess_run_and_log(
+        #     ["jupyter-book", "myst", "init", fn], logger
+        # ) # maybe this is the way? untested
         subprocess_run_and_log(["jupytext", fn, "--to", "ipynb"], logger)
     logger.info("Found no errors while transforming files to .ipynb.")
 
