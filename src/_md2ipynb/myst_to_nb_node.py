@@ -1,17 +1,20 @@
 import json
+import pathlib
 import re
+import typing as t
 from textwrap import dedent
 
+import markdown_it
 import nbformat as nbf
 import yaml
+from mdit_py_plugins.front_matter import front_matter_plugin
+from mdit_py_plugins.myst_blocks import myst_block_plugin
+from mdit_py_plugins.myst_role import myst_role_plugin
 
-try:
-    from markdown_it import MarkdownIt
-    from mdit_py_plugins.front_matter import front_matter_plugin
-    from mdit_py_plugins.myst_blocks import myst_block_plugin
-    from mdit_py_plugins.myst_role import myst_role_plugin
-except ImportError:
-    MarkdownIt = None
+# try:
+# from markdown_it import MarkdownIt
+# except ImportError:
+#     MarkdownIt = None
 
 
 CODE_DIRECTIVE = "{code-cell}"
@@ -22,19 +25,23 @@ class MystMetadataParsingError(Exception):
     """Error when parsing metadata from myst formatted text"""
 
 
-def is_myst_available():
-    """Whether the markdown-it-py package is available."""
-    return MarkdownIt is not None
+class MystParsingError(Exception):
+    """Error when parsing myst formatted text"""
 
 
-def raise_if_myst_is_not_available():
-    if not is_myst_available():
-        raise ImportError(
-            "The MyST Markdown format requires python >= 3.6 and markdown-it-py~=1.0"
-        )
+# def is_myst_available():
+#     """Whether the markdown-it-py package is available."""
+#     return MarkdownIt is not None
 
 
-def strip_blank_lines(text):
+# def raise_if_myst_is_not_available():
+#     if not is_myst_available():
+#         raise ImportError(
+#             "The MyST Markdown format requires python >= 3.6 and markdown-it-py~=1.0"
+#         )
+
+
+def strip_blank_lines(text: str) -> str:
     """Remove initial blank lines"""
     text = text.rstrip()
     while text and text.startswith("\n"):
@@ -42,9 +49,13 @@ def strip_blank_lines(text):
     return text
 
 
-def read_fenced_cell(token, cell_index, cell_type):
+def read_fenced_cell(
+    token: markdown_it.token.Token, cell_index: int, cell_type
+) -> tuple[dict[str, t.Any], list[str]]:
     """Parse (and validate) the full directive text."""
     content = token.content
+    # if token.map is None:
+    #     raise MystParsingError
     error_msg = "{} cell {} at line {} could not be read: ".format(
         cell_type, cell_index, token.map[0] + 1
     )
@@ -59,10 +70,11 @@ def read_fenced_cell(token, cell_index, cell_type):
     return options, body_lines
 
 
-def get_parser():
+def get_parser() -> markdown_it.MarkdownIt:
+    # def get_parser() -> list[markdown_it.token.Token]:
     """Return the markdown-it parser to use."""
     parser = (
-        MarkdownIt("commonmark")
+        markdown_it.MarkdownIt("commonmark")
         .enable("table")
         .use(front_matter_plugin)
         .use(myst_block_plugin)
@@ -73,7 +85,9 @@ def get_parser():
     return parser
 
 
-def parse_directive_options(content, error_msg):
+def parse_directive_options(
+    content: str, error_msg: str
+) -> tuple[list[str], dict[str, t.Any]]:
     """Parse (and validate) the directive option section."""
     options = {}
     if content.startswith("---"):
@@ -111,10 +125,12 @@ def parse_directive_options(content, error_msg):
     return content.splitlines(), options
 
 
-def read_cell_metadata(token, cell_index):
+def read_cell_metadata(
+    token: markdown_it.token.Token, cell_index: int
+) -> dict[str, t.Any]:
     """Return cell metadata"""
     metadata = {}
-    if token.content:
+    if token.content:  # and (token.map is not None):
         try:
             metadata = json.loads(token.content.strip())
         except Exception as err:
@@ -134,11 +150,11 @@ def read_cell_metadata(token, cell_index):
 
 
 def myst_to_notebook(
-    text,
-    code_directive=CODE_DIRECTIVE,
-    raw_directive=RAW_DIRECTIVE,
-    add_source_map=False,
-):
+    text: str,
+    code_directive: str = CODE_DIRECTIVE,
+    raw_directive: str = RAW_DIRECTIVE,
+    add_source_map: bool = False,
+) -> nbf.notebooknode.NotebookNode:
     """Convert text written in the myst format to a notebook.
 
     :param text: the file text
@@ -152,7 +168,7 @@ def myst_to_notebook(
     NOTE: we assume here that all of these directives are at the top-level,
     i.e. not nested in other directives.
     """
-    raise_if_myst_is_not_available()
+    # raise_if_myst_is_not_available()
 
     tokens = get_parser().parse(text + "\n")
     lines = text.splitlines()
@@ -174,7 +190,11 @@ def myst_to_notebook(
     notebook = nbf_version.new_notebook(**kwargs)
     source_map = []  # this is a list of the starting line number for each cell
 
-    def _flush_markdown(start_line, token, md_metadata):
+    def _flush_markdown(
+        start_line: int,
+        token: t.Optional[markdown_it.token.Token],
+        md_metadata: dict[str, t.Any],
+    ):
         """When we find a cell we check if there is preceding text.o"""
         endline = token.map[0] if token else len(lines)
         md_source = strip_blank_lines("\n".join(lines[start_line:endline]))
@@ -190,6 +210,10 @@ def myst_to_notebook(
     md_metadata = {}
 
     for token in tokens:
+        # catch empty map attr before indexing it
+        if not token or token.map is None:
+            continue
+
         nesting_level += token.nesting
 
         if nesting_level != 0:
@@ -236,3 +260,20 @@ def myst_to_notebook(
     if add_source_map:
         notebook.metadata["source_map"] = source_map
     return notebook
+
+
+def myst_to_nb(
+    nb: nbf.notebooknode.NotebookNode,
+    fp: pathlib.PurePath,
+    capture_validation_error=None,
+    **kwargs,
+) -> None:
+    # nb = myst_to_notebook(text)
+    # fp = "/home/app_user/data/x.ipynb"
+    nbf.write(
+        nb,
+        fp,
+        version=4,
+        capture_validation_error=capture_validation_error,
+        **kwargs,
+    )
