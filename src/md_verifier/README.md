@@ -1,8 +1,10 @@
-# Main ideas
+# Summary
 
-* custom rules for markdownlint (in JavaScript)
-* find a way to validate against JSON schema
-* AST + using assertion tools for writing custom rules (in JavaScript)
+Here are some of the approaches we can take to develop MD validator/verifier that works well with MyST specs:
+* write [custom rules for markdownlint](https://github.com/DavidAnson/markdownlint/blob/main/doc/CustomRules.md) (in JavaScript)
+* find a way to validate against [MyST JSON schema](https://github.com/executablebooks/myst-spec/tree/main)
+* find a way to utilize [myst tests](https://​​unpkg​​.com​​/browse​​/myst​​-spec​​/dist​​/) for MD verification
+* AST ([mdast](https://github.com/syntax-tree/mdast) or [docutils](https://github.com/jimo1001/docutils-ast-writer)? is there any alternative?) + using [assertion tools](https://github.com/syntax-tree/mdast-util-assert) for writing custom rules (in JavaScript)
 
 # Ideas
 
