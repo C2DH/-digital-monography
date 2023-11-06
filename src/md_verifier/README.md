@@ -1,4 +1,10 @@
-# Summary
+# Objective
+
+The objective is to make a Markdown validator (verifier, linter) to check validity of the .md files.
+
+An example of an interesting MD verifier in action is [this tool made for the CommonMark markdown](https://dlaa.me/markdownlint/) based on `markdownlint`.
+
+# Ideas summary
 
 Here are some of the approaches we can take to develop MD validator/verifier that works well with MyST specs:
 * write [custom rules for markdownlint](https://github.com/DavidAnson/markdownlint/blob/main/doc/CustomRules.md) (in JavaScript)
