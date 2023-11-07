@@ -1,18 +1,14 @@
 import argparse
 import logging
 import pathlib
-import shutil
 
 from constants import CONFIG_NAME, DATA_DIR
-from src.md2ipynb import _copy_content_files, _transform_to_ipynb
+from md2ipynb import _copy_content_files, _transform_to_ipynb
 from utils import (
     BookConfigParser,
-    BookMetadata,
-    TableOfContents,
     config_logging,
     copy_static_files,
     create_book_subdir,
-    subprocess_run_and_log,
 )
 
 config_logging()
