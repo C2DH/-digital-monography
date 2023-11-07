@@ -1,4 +1,6 @@
+# import datetime
 import json
+import logging
 import pathlib
 import re
 import typing as t
@@ -54,8 +56,8 @@ def read_fenced_cell(
 ) -> tuple[dict[str, t.Any], list[str]]:
     """Parse (and validate) the full directive text."""
     content = token.content
-    # if token.map is None:
-    #     raise MystParsingError
+    if token.map is None:
+        raise MystParsingError
     error_msg = "{} cell {} at line {} could not be read: ".format(
         cell_type, cell_index, token.map[0] + 1
     )
@@ -89,7 +91,7 @@ def parse_directive_options(
     content: str, error_msg: str
 ) -> tuple[list[str], dict[str, t.Any]]:
     """Parse (and validate) the directive option section."""
-    options = {}
+    options: dict[str, t.Any] = {}
     if content.startswith("---"):
         content = "\n".join(content.splitlines()[1:])
         match = re.search(r"^-{3,}", content, re.MULTILINE)
@@ -130,7 +132,7 @@ def read_cell_metadata(
 ) -> dict[str, t.Any]:
     """Return cell metadata"""
     metadata = {}
-    if token.content:  # and (token.map is not None):
+    if token.content and (token.map is not None):
         try:
             metadata = json.loads(token.content.strip())
         except Exception as err:
@@ -177,8 +179,9 @@ def myst_to_notebook(
     # get the document metadata
     metadata_nb = {}
     if tokens and tokens[0].type == "front_matter":
-        metadata = tokens.pop(0)
-        md_start_line = metadata.map[1]
+        metadata: markdown_it.token.Token = tokens.pop(0)
+        if metadata and metadata.map:
+            md_start_line = metadata.map[1]
         try:
             metadata_nb = yaml.safe_load(metadata.content)
         except (yaml.parser.ParserError, yaml.scanner.ScannerError) as error:
@@ -188,7 +191,8 @@ def myst_to_notebook(
     nbf_version = nbf.v4
     kwargs = {"metadata": nbf.from_dict(metadata_nb)}
     notebook = nbf_version.new_notebook(**kwargs)
-    source_map = []  # this is a list of the starting line number for each cell
+    # 'source_map' is a list of the starting line number for each cell
+    source_map: list[int] = []
 
     def _flush_markdown(
         start_line: int,
@@ -196,7 +200,7 @@ def myst_to_notebook(
         md_metadata: dict[str, t.Any],
     ):
         """When we find a cell we check if there is preceding text.o"""
-        endline = token.map[0] if token else len(lines)
+        endline = token.map[0] if token and token.map else len(lines)
         md_source = strip_blank_lines("\n".join(lines[start_line:endline]))
         meta = nbf.from_dict(md_metadata)
         if md_source:
@@ -206,8 +210,8 @@ def myst_to_notebook(
             )
 
     # iterate through the tokens to identify notebook cells
-    nesting_level = 0
-    md_metadata = {}
+    nesting_level: int = 0
+    md_metadata: dict[str, t.Any] = {}
 
     for token in tokens:
         # catch empty map attr before indexing it
