@@ -1,8 +1,9 @@
-# import datetime
+import argparse
 import json
 import logging
 import pathlib
 import re
+import shutil
 import typing as t
 from textwrap import dedent
 
@@ -13,11 +14,26 @@ from mdit_py_plugins.front_matter import front_matter_plugin
 from mdit_py_plugins.myst_blocks import myst_block_plugin
 from mdit_py_plugins.myst_role import myst_role_plugin
 
-# try:
-# from markdown_it import MarkdownIt
-# except ImportError:
-#     MarkdownIt = None
+from constants import CONFIG_NAME, DATA_DIR
+from utils import (
+    BookConfigParser,
+    BookMetadata,
+    TableOfContents,
+    config_logging,
+    copy_static_files,
+    create_book_subdir,
+)
 
+config_logging()
+
+logger = logging.getLogger("root.md2ipynb")
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "project_path",
+    type=pathlib.Path,
+    help=f"Select the project directory, in which there should be {CONFIG_NAME}, "
+    "bibliography and content files.",
+)
 
 CODE_DIRECTIVE = "{code-cell}"
 RAW_DIRECTIVE = "{raw-cell}"
@@ -266,7 +282,7 @@ def myst_to_notebook(
     return notebook
 
 
-def myst_to_nb(
+def write_notobook(
     nb: nbf.notebooknode.NotebookNode,
     fp: pathlib.PurePath,
     capture_validation_error=None,
@@ -277,7 +293,45 @@ def myst_to_nb(
     nbf.write(
         nb,
         fp,
-        version=4,
+        version=nb.get("nbformat", 4),
         capture_validation_error=capture_validation_error,
         **kwargs,
     )
+
+
+def _copy_content_files(
+    slug: str, jb_config: BookMetadata, jb_toc: TableOfContents
+):
+    for ch in jb_toc.get("chapters", []):
+        fn = ch["file"]
+        shutil.copy(
+            f"{DATA_DIR}/md/{slug}/{fn}",
+            f"{DATA_DIR}/ipynb/{slug}/{fn}",
+        )
+    logger.info("Found no errors while copying content files.")
+
+
+def _get_new_ipynb_filepath(fp: pathlib.PurePath) -> pathlib.PurePath:
+    return fp.parent / (fp.name.replace(fp.suffix, ".ipynb"))
+
+
+if __name__ == "__main__":
+    logger.info("New process: transforming .md files to a .ipynb file.")
+    args = parser.parse_args()
+    bc = BookConfigParser(args.project_path)
+    bc.open_book_config()
+    jb_config = bc.jb_config
+    jb_toc = bc.jb_toc
+    slug = bc.slug
+    create_book_subdir("ipynb", slug)
+    copy_static_files(
+        pathlib.Path(DATA_DIR) / "md" / args.project_path.name,
+        pathlib.Path(DATA_DIR) / "ipynb" / args.project_path.name,
+    )
+    _copy_content_files(slug, jb_config, jb_toc)
+    for ch in jb_toc.get("chapters", []):
+        md_path = pathlib.Path(f"{DATA_DIR}/ipynb/{slug}/{ch['file']}")
+        nb_path = _get_new_ipynb_filepath(md_path)
+        with open(md_path, encoding="utf-8") as f:
+            nb = myst_to_notebook(f.read())
+        write_notobook(nb, nb_path)
