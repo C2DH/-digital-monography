@@ -64,7 +64,7 @@ docker compose exec main python src/html2pdf.py
 ## Running tests
 
 ```sh
-docker compose exec main pytest src
+docker compose exec main pytest tests
 ```
 
 ## Running modes
