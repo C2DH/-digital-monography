@@ -115,3 +115,24 @@ For example, you can set up the VS Code editor to format the code. VS Code setti
 Extensions to install on the VS Code marketplace:
 * [Black Formatter by Microsoft](https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter)
 * [isort by Microsoft](https://marketplace.visualstudio.com/items?itemName=ms-python.isort)
+
+# Reading .ipynb files
+
+## Set up
+
+Please remember that in order to benefit from additional MyST features you should read .ipynb files using the [Jupyter Lab](https://jupyterlab.readthedocs.io/en/latest/) and the [`jupyterlab_myst` extension](https://github.com/executablebooks/jupyterlab-myst).
+
+Detailed installation instructions can be found in the [official MyST guide](https://mystmd.org/guide/quickstart-jupyter-lab-myst). In short, it should be sufficient to install Jupyter Lab and the `jupyterlab_myst` extension.
+
+```sh
+pip install jupyterlab
+pip install jupyterlab_myst
+```
+
+## Opening a file
+
+In order to open .ipynb files, run the Jupyter Lab (and not the Jupyter Notebook) using the `jupyter lab` command in the directory in which the .ipynb files are located.
+
+```sh
+jupyter lab
+```
