@@ -214,7 +214,7 @@ def myst_to_notebook(
         start_line: int,
         token: t.Optional[markdown_it.token.Token],
         md_metadata: dict[str, t.Any],
-    ):
+    ) -> None:
         """When we find a cell we check if there is preceding text.o"""
         endline = token.map[0] if token and token.map else len(lines)
         md_source = strip_blank_lines("\n".join(lines[start_line:endline]))
@@ -224,6 +224,20 @@ def myst_to_notebook(
             notebook.cells.append(
                 nbf_version.new_markdown_cell(source=md_source, metadata=meta)
             )
+
+    def _add_markdown_cell(
+        token: t.Optional[markdown_it.token.Token],
+        md_metadata: dict[str, t.Any],
+    ) -> None:
+        """Append notebook cells with a markdown block
+        that corresponds to the `token.map[block_start, block_end]` values"""
+        startline = token.map[0]
+        endline = token.map[1]
+        md_source = strip_blank_lines("\n".join(lines[startline:endline]))
+        meta = nbf.from_dict(md_metadata)
+        notebook.cells.append(
+            nbf_version.new_markdown_cell(source=md_source, metadata=meta)
+        )
 
     # iterate through the tokens to identify notebook cells
     nesting_level: int = 0
@@ -236,11 +250,11 @@ def myst_to_notebook(
 
         nesting_level += token.nesting
 
-        if nesting_level != 0:
-            # we ignore fenced block that are nested, e.g. as part of lists, etc
-            continue
-
-        if token.type == "fence" and token.info.startswith(code_directive):
+        if (
+            token.type == "fence"
+            and token.info.startswith(code_directive)
+            and nesting_level == 0
+        ):
             _flush_markdown(md_start_line, token, md_metadata)
             options, body_lines = read_fenced_cell(
                 token, len(notebook.cells), "Code"
@@ -255,7 +269,11 @@ def myst_to_notebook(
             md_metadata = {}
             md_start_line = token.map[1]
 
-        elif token.type == "fence" and token.info.startswith(raw_directive):
+        elif (
+            token.type == "fence"
+            and token.info.startswith(raw_directive)
+            and nesting_level == 0
+        ):
             _flush_markdown(md_start_line, token, md_metadata)
             options, body_lines = read_fenced_cell(
                 token, len(notebook.cells), "Raw"
@@ -270,9 +288,14 @@ def myst_to_notebook(
             md_metadata = {}
             md_start_line = token.map[1]
 
-        elif token.type == "myst_block_break":
+        elif token.type == "myst_block_break" and nesting_level == 0:
             _flush_markdown(md_start_line, token, md_metadata)
             md_metadata = read_cell_metadata(token, len(notebook.cells))
+            md_start_line = token.map[1]
+
+        elif token.level == 0:
+            # note the is MD cell metadata is always empty
+            _add_markdown_cell(token, {})
             md_start_line = token.map[1]
 
     _flush_markdown(md_start_line, None, md_metadata)
