@@ -525,37 +525,45 @@ $$ \label{one-liner} Ax=b $$
 
 **Syntax**
 
-:::
-```{glossary}
-Some term
-: some term that need to be defined.
-Sepulcas
-: objects used for sepuling.
-Horses
-: a horse is a horse, of course
 ```
+:::{glossary}
+Term1
+: some term that need to be defined.
 :::
+:::{glossary}
+Term2
+: another definition.
+:::
+:::{glossary}
+Term3
+: yet another definition.
+:::
+```
 
 **Result**
 
-```{glossary}
-Some term
+:::{glossary}
+Term1
 : some term that need to be defined.
-Sepulcas
-: objects used for sepuling.
-Horses
-: a horse is a horse, of course
-```
+:::
+:::{glossary}
+Term2
+: another definition.
+:::
+:::{glossary}
+Term3
+: yet another definition.
+:::
 
-A use of glossaries enables us to reference certain terms in our books/articles. For example, we can now reference {term}`sepulcas`.
+A use of glossaries enables us to reference certain terms in our books/articles. For example, we can now reference {term}`Term2`.
 
 | Syntax | Result |
 | --- | --- |
-| ```{term}`sepulcas` ``` | {term}`sepulcas` |
+| Some sentence that mentiones ```{term}`Term2` ``` | Some sentence that mentiones {term}`Term2` |
 
 Please see the [MyST guide](https://mystmd.org/guide/glossaries-and-terms) on how to create a glossary.
 
-## Table of contents
+## Table of contents <sup>(MyST feature)</sup>
 
 Our software allows you to automatically generate and display table of contents. Note that the structure of the document will be determined by the heading and not by your configuration file.
 
