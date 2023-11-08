@@ -15,3 +15,6 @@ file = "what_is_md.md"
 
 [[table_of_contents.chapters]]
 file = "markdown_guidelines.md"
+
+[[table_of_contents.chapters]]
+file = "diagrams.md"
