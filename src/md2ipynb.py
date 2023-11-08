@@ -167,6 +167,34 @@ def read_cell_metadata(
     return metadata
 
 
+def is_code_directive(
+    token: markdown_it.token.Token,
+    nesting_level: int,
+    code_directive: str = CODE_DIRECTIVE,
+) -> bool:
+    return (
+        token.type == "fence"
+        and token.info.startswith(code_directive)
+        and nesting_level == 0
+    )
+
+
+def is_raw_directive(
+    token: markdown_it.token.Token,
+    nesting_level: int,
+    raw_directive: str = RAW_DIRECTIVE,
+) -> bool:
+    return (
+        token.type == "fence"
+        and token.info.startswith(raw_directive)
+        and nesting_level == 0
+    )
+
+
+def is_myst_block_break(token, nesting_level):
+    return token.type == "myst_block_break" and nesting_level == 0
+
+
 def myst_to_notebook(
     text: str,
     code_directive: str = CODE_DIRECTIVE,
@@ -250,11 +278,7 @@ def myst_to_notebook(
 
         nesting_level += token.nesting
 
-        if (
-            token.type == "fence"
-            and token.info.startswith(code_directive)
-            and nesting_level == 0
-        ):
+        if is_code_directive(token, nesting_level):
             _flush_markdown(md_start_line, token, md_metadata)
             options, body_lines = read_fenced_cell(
                 token, len(notebook.cells), "Code"
@@ -269,11 +293,7 @@ def myst_to_notebook(
             md_metadata = {}
             md_start_line = token.map[1]
 
-        elif (
-            token.type == "fence"
-            and token.info.startswith(raw_directive)
-            and nesting_level == 0
-        ):
+        elif is_raw_directive(token, nesting_level):
             _flush_markdown(md_start_line, token, md_metadata)
             options, body_lines = read_fenced_cell(
                 token, len(notebook.cells), "Raw"
@@ -288,7 +308,7 @@ def myst_to_notebook(
             md_metadata = {}
             md_start_line = token.map[1]
 
-        elif token.type == "myst_block_break" and nesting_level == 0:
+        elif is_myst_block_break(token, nesting_level):
             _flush_markdown(md_start_line, token, md_metadata)
             md_metadata = read_cell_metadata(token, len(notebook.cells))
             md_start_line = token.map[1]
