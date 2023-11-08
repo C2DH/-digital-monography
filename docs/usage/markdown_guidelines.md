@@ -324,9 +324,9 @@ See the [MyST parser documentation](https://myst-parser.readthedocs.io/en/latest
 
 ### Block quotes
 
-**Syntax**
-
 You can insert a block of text separate from the rest of the page with a use of the `> ` syntax.
+
+**Syntax**
 
 ```
 > Example of the `> ` syntax.
