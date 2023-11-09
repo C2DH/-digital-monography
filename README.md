@@ -136,3 +136,8 @@ In order to open .ipynb files, run the Jupyter Lab (and not the Jupyter Notebook
 ```sh
 jupyter lab
 ```
+
+## Usefull extensions
+
+* pandoc, for example for 'Saving and Exporting Notebook As PDF'
+* TeX Live, for example for 'Saving and Exporting Notebook As PDF'
