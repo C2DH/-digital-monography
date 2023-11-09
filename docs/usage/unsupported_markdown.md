@@ -127,22 +127,29 @@ Be sure to check the [mermaid documentation](https://mermaid.js.org/intro/gettin
 
 ### Proofs, Theorems and Algorithms <sup>(MyST feature)</sup>
 
-TODO, see e.g. https://mystmd.org/guide/proofs-and-theorems
+**TODO, see e.g. https://mystmd.org/guide/proofs-and-theorems**
 
 ### Citations <sup>(MyST feature)</sup>
 
+#### Referencing with a DOI Link <sup>(MyST feature)</sup>
+
+For automatic citation management MyST supports DOI<sup>(R)</sup> citations. DOI (Digital Object Identifier) number is designed to uniquely and persistently identify objects (incl. books, articles and so on). 
+The DOI system offers a persistent actionable identifier for use on digital networks.
+If you want to find a DOI number for a given literary work, you can query this [free database](https://www.crossref.org/guestquery). Please note however, that not every book or article has a DOI id. If one has, you can utilize it by using the following syntax.
+
+| Syntax | Result |
+| --- | --- |
+| `See [](doi:10.1145/3411764.3445648)` | See [](doi:10.1145/3411764.3445648) |
+
+Note that using MyST citation automatically creates a bibliography at the end of the document. Scroll down to find it in this document.
+
+You can also read more on DOI System [here](https://www.doi.org/).
+
+#### Including BibTeX file <sup>(MyST feature)</sup>
+
+**TODO**
+
 One of the requirements for a publication in this system is inclusion of a bibliography writen in the BibTeX syntax. We highly recommend managing your bibliographies using the [Zotero tool](https://www.zotero.org/), exporting `.bib` file and uploading this file alongside the rest of your book/article.
-
-To cite your sources, use the syntax `@author`. Here are some ways in which you may want to format your citations (remember to follow the publisher guidelines and to stay consistent):
-
-| Example | Render | Note |
-|---|---|---|
-| @Someone | @Someone | Citation without brackets |
-| [@Someone] | [@Someone] | Citation with brackets (**recommended**) |
-| [@Someone; @SthElse2020] | [@Someone; @SthElse2020] | Multiple citations |
-| [@Someone, p. 100] | [@Someone, p. 100] | Page number as a suffix example |
-| [@Someone, chap. 2] | [@Someone, chap. 2] | Chapter as a suffix example |
-| [e.g. @Someone, p. 100; @SthElse2020] | [e.g. @Someone, p. 100; @SthElse2020] | Example of 'e.g.' prefix |
 
 For more information, see the [MyST guide](https://mystmd.org/guide/citations).
 
@@ -237,7 +244,7 @@ ax.plot(x, y, 'b-', linewidth=2)
 glue("glued_fig", fig, display=False)
 :::
 
-TODO
+**TODO**
 
 * https://mystmd.org/guide/interactive-notebooks
 * https://mystmd.org/guide/reuse-jupyter-outputs
