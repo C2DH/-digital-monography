@@ -304,24 +304,6 @@ You don't have to be strict with formatting the table, as long as you use the pr
 | Row 1, Column 1 | Row 1, Column 2 |
 | Row 2, Column 1 | Row 2, Column 2 |
 
-### CSV tables <sup>(MyST feature)</sup>
-
-**Syntax**
-
-```
-:::{csv-table} Example of a csv table
-:file: ./csv/csv-example.csv
-:::
-```
-
-**Result**
-
-:::{csv-table} Example of a csv table
-:file: ./csv/csv-example.csv
-:::
-
-See the [MyST parser documentation](https://myst-parser.readthedocs.io/en/latest/syntax/tables.html#csv-tables) for more details.
-
 ## Container blocks
 
 ### Block quotes
@@ -597,26 +579,6 @@ My content.[^some-text]
 [^some-text]: A second footnote.
 
 See the [the MyST guide](https://mystmd.org/guide/typography#footnotes) for more details.
-
-## Citations <sup>(MyST feature)</sup>
-
-#### TODO
-
-For more information, see the [MyST guide](https://mystmd.org/guide/citations).
-
-## Cross-referencing
-
-#### TODO
-
-* https://myst-parser.readthedocs.io/en/latest/syntax/cross-referencing.html
-
-## Interactive notebooks (code blocks)
-
-#### TODO
-
-* https://mystmd.org/guide/interactive-notebooks
-* https://mystmd.org/guide/reuse-jupyter-outputs
-* https://mystmd.org/guide/integrating-jupyter
 
 ## Disclaimer
 
