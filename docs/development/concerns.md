@@ -51,6 +51,13 @@ On of the reasons for this is that this makes MD verification easy to implement 
 Note that with each change to the markdown content we get feedback imediately without having to send a request to the server.
 Thus, we will have to decide to which extent we wish to use existing solutions and add write the verification/validation module in JavaScript and to what extent we wish to write our own solutions.
 
+## MD rendering
+
+### Reactivity
+
+To offer users reactivity, MyST builds on top of many frontend technologies: `react`, `backbone.js`, `remix`, `tailwind`, etc. In order to render all MyST features in .md and .ipynb files, it hosts a small web server.
+This might be great for digital journals that are viewed online, but might not work so well with a static book in a pdf format or even html but without a whole server behind it. There might be MyST markdown features that are supported when rendered dynamically, but not statically, without a live web server.
+
 ## Difficult tradeoffs
 
 ### Which markdown spec to use?: MyST (superset of CommonMark) instead of CommonMark/GitHub/Pandoc MD?
