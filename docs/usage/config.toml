@@ -17,4 +17,7 @@ file = "what_is_md.md"
 file = "markdown_guidelines.md"
 
 [[table_of_contents.chapters]]
+file = "unsupported_markdown.md"
+
+[[table_of_contents.chapters]]
 file = "diagrams.md"

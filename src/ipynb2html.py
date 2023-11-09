@@ -57,10 +57,10 @@ def _copy_root_file(
             "was not found."
         )
         raise FileNotFoundError()
-    # root_file_name = root_file.name.replace(root_file.suffix, "")
+    root_file_name = root_file.name.replace(root_file.suffix, "")
     shutil.copy(
         root_file,
-        f"{DATA_DIR}/jb/{slug}/{root_file.name}",
+        f"{DATA_DIR}/jb/{slug}/{root_file_name}",
     )
 
 
