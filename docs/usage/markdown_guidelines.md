@@ -102,7 +102,7 @@ ___
 
 ### Bullet list marker
 
-A list containing non-ordered bullet points can be constructed with the following characters at the beginning of a line.
+A list containing non-ordered bullet points can be constructed with the `-`, `+` or `*` character at the beginning of a line.
 
 **Syntax**
 
@@ -117,6 +117,8 @@ A list containing non-ordered bullet points can be constructed with the followin
 - you can use `-` character
 + you can use `+` character
 * you can use `*` character
+
+Note that using different characters for each bullet point can cause the software to treat the list as a collection of independent bullets (e.g. each bullet can have it's own Jupyter Lab cell). You should be consistent in the bullet character to use.
 
 ___
 
