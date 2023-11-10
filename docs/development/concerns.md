@@ -4,6 +4,10 @@
 
 Please remember that markdown is an ambiguous format.
 
+### Break from WYSIWYG
+
+In word processors like Microsoft Word - you truly get what you see. In Markdown (MyST or otherwise) it's about minimizing the syntax (making it easy to read in its source code form) and putting a lot of logic behind the scenes to render it in a certain way.
+
 ### Loss of flexibility
 
 ### Loss of data
