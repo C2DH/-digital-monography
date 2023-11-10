@@ -15,6 +15,7 @@ from utils import (
     config_logging,
     copy_static_files,
     create_book_subdir,
+    stdout_hero,
     subprocess_run_and_log,
 )
 
@@ -102,6 +103,7 @@ def _build_jupyter_book(slug):
 
 
 if __name__ == "__main__":
+    stdout_hero("ipynb2html")
     logger.info("New process: transforming .html files to a .pdf file.")
     args = parser.parse_args()
     bc = BookConfigParser(args.project_path)

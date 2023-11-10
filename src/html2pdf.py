@@ -4,7 +4,12 @@ import pathlib
 import sys
 
 from constants import CONFIG_NAME, DATA_DIR
-from utils import BookConfigParser, config_logging, subprocess_run_and_log
+from utils import (
+    BookConfigParser,
+    config_logging,
+    stdout_hero,
+    subprocess_run_and_log,
+)
 
 config_logging()
 
@@ -24,6 +29,7 @@ if __name__ == "__main__":
     PDF building is in active development, and may change or have bugs.
     https://jupyterbook.org/en/stable/advanced/pdf.html
     """
+    stdout_hero("html2pdf")
     logger.info("New process: transforming .html files to a .pdf file.")
     args = parser.parse_args()
     bc = BookConfigParser(args.project_path)

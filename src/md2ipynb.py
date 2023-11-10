@@ -22,6 +22,7 @@ from utils import (
     config_logging,
     copy_static_files,
     create_book_subdir,
+    stdout_hero,
 )
 
 config_logging()
@@ -359,6 +360,7 @@ def _get_new_ipynb_filepath(fp: pathlib.PurePath) -> pathlib.PurePath:
 
 
 if __name__ == "__main__":
+    stdout_hero("md2ipynb")
     logger.info("New process: transforming .md files to a .ipynb file.")
     args = parser.parse_args()
     bc = BookConfigParser(args.project_path)

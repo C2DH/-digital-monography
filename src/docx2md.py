@@ -10,6 +10,7 @@ from utils import (
     config_logging,
     copy_static_files,
     create_book_subdir,
+    stdout_hero,
 )
 
 config_logging()
@@ -52,6 +53,7 @@ def _copy_content_files(
 
 
 if __name__ == "__main__":
+    stdout_hero("docx2md")
     logger.info("New process: transforming input files to .md files.")
     args = parser.parse_args()
     bc = BookConfigParser(args.project_path)

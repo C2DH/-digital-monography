@@ -2,7 +2,7 @@ import datetime
 import logging
 import subprocess
 
-from constants import LOGS_DIR
+from constants import AUTHORS, HERO, LOGS_DIR, PROJECT_NAME, VERSION
 
 
 def config_logging() -> None:
@@ -29,3 +29,9 @@ def subprocess_run_and_log(args: list[str], logger: logging.Logger) -> None:
     with process.stdout:
         for line in iter(process.stdout.readline, b""):
             logger.info(line)
+
+
+def stdout_hero(script: str) -> None:
+    print(HERO)
+    print(f"{PROJECT_NAME} v.{VERSION} by {', '.join(AUTHORS)}")
+    print(f"Script name: {script}")
