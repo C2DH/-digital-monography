@@ -4,6 +4,8 @@ import tomllib
 import typing as t
 from dataclasses import dataclass
 
+from src.constants import CONFIG_NAME
+
 from .log_mgnt import config_logging
 
 config_logging()
@@ -125,7 +127,7 @@ class ConfigFileNotFoundError(FileNotFoundError):
 
 class BookConfigParser:
     def __init__(self, source: pathlib.PurePath) -> None:
-        self.config_name = "config.toml"
+        self.config_name = CONFIG_NAME
         self.project_path: pathlib.PurePath = source
         self.jb_config: t.Optional[BookMetadata] = None
         self.jb_toc: t.Optional[TableOfContents] = None

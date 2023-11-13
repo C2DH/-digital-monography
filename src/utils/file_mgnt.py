@@ -1,7 +1,7 @@
 import pathlib
 import shutil
 
-from constants import DATA_DIR, STATIC_DIR_NAMES
+from src.constants import DATA_DIR, STATIC_DIR_NAMES
 
 
 def create_book_subdir(ftype: str, slug: str) -> None:

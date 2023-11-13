@@ -1,11 +1,11 @@
-from utils.file_mgnt import copy_static_files, create_book_subdir  # noqa
-from utils.log_mgnt import (
+from src.utils.file_mgnt import copy_static_files, create_book_subdir  # noqa
+from src.utils.log_mgnt import (  # noqa
     config_logging,
     stdout_hero,
     subprocess_run_and_log,
-)  # noqa
-from utils.read_config import (
+)
+from src.utils.read_config import (  # noqa
     BookConfigParser,
     BookMetadata,
     TableOfContents,
-)  # noqa
+)

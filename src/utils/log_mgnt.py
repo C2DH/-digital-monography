@@ -2,7 +2,7 @@ import datetime
 import logging
 import subprocess
 
-from constants import AUTHORS, HERO, LOGS_DIR, PROJECT_NAME, VERSION
+from src.constants import AUTHORS, HERO, LOGS_DIR, PROJECT_NAME, VERSION
 
 
 def config_logging() -> None:

@@ -78,6 +78,10 @@ RUN mkdir /tests/.pytest_cache
 RUN chown -R app_user:app_user /tests/.pytest_cache
 RUN chmod +rwx------ /tests/.pytest_cache
 
+# Add PYTHONPATH to change the search path for libraries.
+# The search path should be the same for all of the scripts (inlc. tests).
+ENV PYTHONPATH "${PYTHONPATH}:/"
+
 # Change the user to the previously created __app_user__.
 USER app_user
 

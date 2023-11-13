@@ -3,8 +3,8 @@ import logging
 import pathlib
 import shutil
 
-from constants import CONFIG_NAME, DATA_DIR
-from utils import (
+from src.constants import CONFIG_NAME, DATA_DIR
+from src.utils import (
     BookConfigParser,
     BookMetadata,
     TableOfContents,

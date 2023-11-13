@@ -14,8 +14,8 @@ from mdit_py_plugins.front_matter import front_matter_plugin
 from mdit_py_plugins.myst_blocks import myst_block_plugin
 from mdit_py_plugins.myst_role import myst_role_plugin
 
-from constants import CONFIG_NAME, DATA_DIR
-from utils import (
+from src.constants import CONFIG_NAME, DATA_DIR
+from src.utils import (
     BookConfigParser,
     BookMetadata,
     TableOfContents,
