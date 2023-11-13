@@ -18,5 +18,5 @@ PROJECT_NAME = PROJECT_SLUG.replace("-", " ").title()
 AUTHORS = ["Luxembourg Centre for Contemporary and Digital History (C²DH)"]
 DATA_DIR = "/home/app_user/data"
 LOGS_DIR = "/home/app_user/logs"
-CONFIG_NAME = "config.toml"
+CONFIG_NAME = "config.yaml"
 STATIC_DIR_NAMES = ["images", "videos", "csv"]

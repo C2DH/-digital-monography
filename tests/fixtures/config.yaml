@@ -1,0 +1,14 @@
+book_metadata:
+  title: Title of the book
+  author: Gallus Anonymus
+  bibtex_bibfiles:
+    - bibliography.bib
+table_of_contents:
+  format: jb-book
+  root: index.md
+  chapters:
+    - file: input_guidelines.md
+    - file: what_is_md.md
+    - file: markdown_guidelines.md
+    - file: unsupported_markdown.md
+    - file: diagrams.md

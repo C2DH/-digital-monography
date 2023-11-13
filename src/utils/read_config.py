@@ -1,8 +1,11 @@
 import logging
 import pathlib
-import tomllib
+
+# import tomllib
 import typing as t
 from dataclasses import dataclass
+
+import yaml
 
 from src.constants import CONFIG_NAME
 
@@ -175,10 +178,11 @@ class BookConfigParser:
         return self.project_path / self.config_name
 
     def _open_book_config(self) -> tuple[BookMetadata, TableOfContents]:
-        with open(self.config_path, "rb") as f:
-            tomlconfig = tomllib.load(f)
-        jb_config = tomlconfig["book_metadata"]
-        jb_toc = tomlconfig["table_of_contents"]
+        # with open(self.config_path, "rb") as f:
+        # rawconfig = tomllib.load(f)
+        rawconfig = yaml.safe_load(self.config_path.read_text())
+        jb_config = rawconfig["book_metadata"]
+        jb_toc = rawconfig["table_of_contents"]
         return jb_config, jb_toc
 
     def _verify_config_syntax(self) -> None:
