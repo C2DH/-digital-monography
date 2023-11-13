@@ -1,6 +1,6 @@
 # Guidelines
 
-:::{image} ./img/uni_logo.png
+:::{image} ./images/uni_logo.png
 :width: 100px
 :align: center
 :::

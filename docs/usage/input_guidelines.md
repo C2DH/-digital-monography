@@ -10,7 +10,7 @@ As an author, you are required to upload a package of a following structure:
 ├── bibliography.bib
 ├── part1.md
 ├── part2.md
-├── img/
+├── images/
 │   ├── img1.jpg
 │   ├── img2.png
 │   ├── img3.gif
@@ -29,7 +29,7 @@ For books and articles that include multiple images and/or other media files, it
 ├── bibliography.bib
 ├── part1.md
 ├── part2.md
-├── img/
+├── images/
 │   ├── part1/
 │   │   ├── img1.jpg
 │   │   ├── img2.png

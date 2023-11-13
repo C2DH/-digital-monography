@@ -235,7 +235,7 @@ You can embed an image by linking to an image file.
 
 | Syntax | Result |
 | --- | --- |
-| `![Logo of the University](./img/uni_logo.png)` | ![Logo of the University](./img/uni_logo.png) |
+| `![Logo of the University](./images/uni_logo.png)` | ![Logo of the University](./images/uni_logo.png) |
 
 ### Using directives to format your image <sup>(MyST feature)</sup>
 
@@ -247,7 +247,7 @@ The `image` directive allows you to customize:
 **Syntax**
 
 ```
-:::{image} ./img/uni_logo.png
+:::{image} ./images/uni_logo.png
 :name: uni-logo
 :width: 100px
 :align: center
@@ -256,7 +256,7 @@ The `image` directive allows you to customize:
 
 **Result**
 
-:::{image} ./img/uni_logo.png
+:::{image} ./images/uni_logo.png
 :name: uni-logo
 :width: 100px
 :align: center
