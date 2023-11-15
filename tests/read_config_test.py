@@ -30,10 +30,9 @@ def test_table_of_contents():
     jb_toc = bc.jb_toc
     assert jb_toc["format"] == "jb-book"
     assert jb_toc["root"] == "index.md"
-    assert jb_toc["chapters"][0]["file"] == "input_guidelines.md"
-    assert jb_toc["chapters"][1]["file"] == "what_is_md.md"
-    assert jb_toc["chapters"][2]["file"] == "markdown_guidelines.md"
-    assert jb_toc["chapters"][-1]["file"] == "diagrams.md"
+    assert jb_toc["chapters"][0]["file"] == "simple_commonmark.md"
+    assert jb_toc["chapters"][1]["file"] == "myst_extensions.md"
+    assert jb_toc["chapters"][-1]["file"] == "myst_extensions.md"
 
 
 def test_slug():
