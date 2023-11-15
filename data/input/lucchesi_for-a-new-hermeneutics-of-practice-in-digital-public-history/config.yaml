@@ -1,14 +1,15 @@
 book_metadata:
-title: >-
-  FOR A NEW HERMENEUTICS OF PRACTICE IN DIGITAL PUBLIC HISTORY: THINKERING
-  WITH MEMORECORD.UNI.LU
-author: Anita LUCCHESI
-bibtex_bibfiles:
-  - bibliography.bib
+  title: >-
+    FOR A NEW HERMENEUTICS OF PRACTICE IN DIGITAL PUBLIC HISTORY: THINKERING
+    WITH MEMORECORD.UNI.LU
+  author: Anita LUCCHESI
+  bibtex_bibfiles:
+    - bibliography.bib
 table_of_contents:
   format: jb-book
   root: cover.md
   chapters:
+    - file: cover.md
     - file: abstract.md
     - file: acknowledgements.md
     - file: introduction.md

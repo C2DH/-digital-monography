@@ -23,11 +23,8 @@ With this in mind, what were the expectations regarding this digital memory plat
 
 The infographic below [_Figure 1_](#fig-1) gives an overview of the milestones experienced up to the final product for the Memorecord memory harvest. In the following sections, I will present each of the developing phases indicated hereunder. I will also report on the adaptations that became necessary to guarantee pursuit of the project's original goals while trying to accommodate the different expectations and contributions of the community participants.
 
-<!-- ![fig_1](https://i.imgur.com/93r15N5.png)Figure 1. \#Memorecord's roadmap, by Anita Lucchesi, 2019._ -->
-
 :::{figure} https://i.imgur.com/93r15N5.png
 :name: fig-1
-
 \#Memorecord's roadmap, by Anita Lucchesi, 2019._
 :::
 
