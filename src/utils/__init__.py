@@ -8,4 +8,6 @@ from src.utils.read_config import (  # noqa
     BookConfigParser,
     BookMetadata,
     TableOfContents,
+    get_ordered_filename,
+    is_root_in_chapters,
 )

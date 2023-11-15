@@ -215,8 +215,7 @@ def myst_to_notebook(
     NOTE: we assume here that all of these directives are at the top-level,
     i.e. not nested in other directives.
     """
-    # raise_if_myst_is_not_available()
-
+    logger.info(f"Opened {len(text.encode('utf-8'))} bytes of markdown text.")
     tokens = get_parser().parse(text + "\n")
     lines = text.splitlines()
     md_start_line = 0
@@ -332,8 +331,6 @@ def write_notobook(
     capture_validation_error=None,
     **kwargs,
 ) -> None:
-    # nb = myst_to_notebook(text)
-    # fp = "/home/app_user/data/x.ipynb"
     nbf.write(
         nb,
         fp,
@@ -343,20 +340,34 @@ def write_notobook(
     )
 
 
-def _copy_content_files(
-    slug: str, jb_config: BookMetadata, jb_toc: TableOfContents
-):
-    for ch in jb_toc.get("chapters", []):
-        fn = ch["file"]
+def _copy_content_files(slug: str):
+    src_dir = pathlib.Path(f"{DATA_DIR}/md/{slug}")
+    for md in src_dir.glob("*.md"):
         shutil.copy(
-            f"{DATA_DIR}/md/{slug}/{fn}",
-            f"{DATA_DIR}/ipynb/{slug}/{fn}",
+            f"{DATA_DIR}/md/{slug}/{md.name}",
+            f"{DATA_DIR}/ipynb/{slug}/{md.name}",
         )
-    logger.info("Found no errors while copying content files.")
+
+
+def _transform_md_files(slug: str):
+    src_dir = pathlib.Path(f"{DATA_DIR}/ipynb/{slug}")
+    for md_path in src_dir.glob("*.md"):
+        logger.info(f"Transforming the file '{md_path}' to '.ipynb'.")
+        nb_path = _get_new_ipynb_filepath(md_path)
+        with open(md_path, encoding="utf-8") as f:
+            nb = myst_to_notebook(f.read())
+        write_notobook(nb, nb_path)
+        logger.info(f"Transforming the file to '{nb_path}' ended.")
 
 
 def _get_new_ipynb_filepath(fp: pathlib.PurePath) -> pathlib.PurePath:
     return fp.parent / (fp.name.replace(fp.suffix, ".ipynb"))
+
+
+def _remove_md_files(slug: str) -> None:
+    src_dir = pathlib.Path(f"{DATA_DIR}/ipynb/{slug}")
+    for md_path in src_dir.glob("*.md"):
+        md_path.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":
@@ -373,10 +384,6 @@ if __name__ == "__main__":
         pathlib.Path(DATA_DIR) / "md" / args.project_path.name,
         pathlib.Path(DATA_DIR) / "ipynb" / args.project_path.name,
     )
-    _copy_content_files(slug, jb_config, jb_toc)
-    for ch in jb_toc.get("chapters", []):
-        md_path = pathlib.Path(f"{DATA_DIR}/ipynb/{slug}/{ch['file']}")
-        nb_path = _get_new_ipynb_filepath(md_path)
-        with open(md_path, encoding="utf-8") as f:
-            nb = myst_to_notebook(f.read())
-        write_notobook(nb, nb_path)
+    _copy_content_files(slug)
+    _transform_md_files(slug)
+    _remove_md_files(slug)

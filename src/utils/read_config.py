@@ -1,9 +1,7 @@
+import dataclasses
 import logging
 import pathlib
-
-# import tomllib
 import typing as t
-from dataclasses import dataclass
 
 import yaml
 
@@ -17,7 +15,7 @@ config_logging()
 logger = logging.getLogger("utils.read_config")
 
 
-@dataclass
+@dataclasses.dataclass
 class BookMetadataExecute:
     cache: str
     exclude_patterns: list[t.Any]
@@ -30,20 +28,20 @@ class BookMetadataExecute:
     execute_notebooks: t.Literal["auto", "force", "cache", "off"]
 
 
-@dataclass
+@dataclasses.dataclass
 class BookMetadataParse:
     myst_enable_extensions: t.Any
     myst_url_schemes: list[str]
     myst_dmath_double_inline: bool
 
 
-@dataclass
+@dataclasses.dataclass
 class BookMetadataHtmlComments:
     hypothesis: bool
     utterances: bool
 
 
-@dataclass
+@dataclasses.dataclass
 class BookMetadataHtml:
     favicon: str
     use_edit_page_button: bool
@@ -59,7 +57,7 @@ class BookMetadataHtml:
     announcement: str
 
 
-@dataclass
+@dataclasses.dataclass
 class BookMetadataLatex:
     use_jupyterbook_latex: bool
     latex_engine: t.Literal[
@@ -67,7 +65,7 @@ class BookMetadataLatex:
     ]
 
 
-@dataclass
+@dataclasses.dataclass
 class BookMetadataLaunchButtons:
     notebook_interface: str
     binderhub_url: str
@@ -76,14 +74,14 @@ class BookMetadataLaunchButtons:
     colab_url: str
 
 
-@dataclass
+@dataclasses.dataclass
 class BookMetadataRepository:
     url: str
     path_to_book: str
     branch: str
 
 
-@dataclass
+@dataclasses.dataclass
 class BookMetadataSphinx:
     extra_extensions: list[t.Any]
     local_extensions: list[t.Any]
@@ -91,7 +89,7 @@ class BookMetadataSphinx:
     config: dict[str, t.Any]
 
 
-@dataclass
+@dataclasses.dataclass
 class BookMetadata:
     """
     https://jupyterbook.org/en/stable/customize/config.html
@@ -113,7 +111,7 @@ class BookMetadata:
     sphinx: BookMetadataSphinx
 
 
-@dataclass
+@dataclasses.dataclass
 class TableOfContents:
     """
     https://jupyterbook.org/en/stable/structure/toc.html
@@ -178,8 +176,6 @@ class BookConfigParser:
         return self.project_path / self.config_name
 
     def _open_book_config(self) -> tuple[BookMetadata, TableOfContents]:
-        # with open(self.config_path, "rb") as f:
-        # rawconfig = tomllib.load(f)
         rawconfig = yaml.safe_load(self.config_path.read_text())
         jb_config = rawconfig["book_metadata"]
         jb_toc = rawconfig["table_of_contents"]
@@ -193,3 +189,24 @@ class BookConfigParser:
 
     def _get_book_slug(self) -> str:
         return self.project_path.name
+
+
+def get_ordered_filename(
+    order: int, fp: pathlib.Path, total_items: int
+) -> str:
+    """
+    Generate a filename '01_filename' for arbitrary file ordering.
+    """
+    mask = "0" * len(str(total_items)) if total_items >= 10 else "00"
+    name = fp.name.replace(fp.suffix, "")
+    return "{nbr:0>{msk}}_{nme}".format(nbr=order, msk=len(mask), nme=name)
+
+
+def is_root_in_chapters(
+    jb_toc: TableOfContents,
+) -> bool:
+    try:
+        chapters = jb_toc["chapters"]
+        return next(f for f in chapters if f.get("file", "") == jb_toc["root"])
+    except (KeyError, StopIteration):
+        return False
