@@ -45,20 +45,20 @@ docker compose run mdlint "/home/app_user/data/md/**/*.md" >> "logs/md_linting.l
 docker compose exec main python src/md2ipynb.py
 ```
 
-### Transform .ipynb to .html
+### Transform .ipynb to .html (unfinished)
 
 ```sh
-docker compose exec main python src/ipynb2html.py
+docker compose exec main python src/_ipynb2html.py
 ```
 
 ### Transform ... to JATS .xml
 
 [myst-to-jats](https://github.com/executablebooks/mystmd/tree/main/packages/myst-to-jats) can convert a MyST AST to JATS XML.
 
-### Transform .html to .pdf
+### Transform .html to .pdf (unfinished)
 
 ```sh
-docker compose exec main python src/html2pdf.py
+docker compose exec main python src/_html2pdf.py
 ```
 
 ## Running tests
