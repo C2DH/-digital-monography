@@ -72,11 +72,15 @@ COPY /logs /logs
 RUN chown -R app_user:app_user /logs
 RUN chmod +rwx------ /logs
 
-# Give the user permissions to write to cache tests results.
+# Give pytest permissions to cache tests results.
 COPY /tests /tests
 RUN mkdir /tests/.pytest_cache
 RUN chown -R app_user:app_user /tests/.pytest_cache
 RUN chmod +rwx------ /tests/.pytest_cache
+# Give pytest permissions to cache tests auxiliaries.
+RUN mkdir /.pytest_cache
+RUN chown -R app_user:app_user /.pytest_cache
+RUN chmod +rwx------ /.pytest_cache
 
 # Add PYTHONPATH to change the search path for libraries.
 # The search path should be the same for all of the scripts (inlc. tests).
