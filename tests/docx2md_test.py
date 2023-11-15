@@ -10,7 +10,7 @@ from src.docx2md import copy_input_files_to_md_dir
 @pytest.mark.slow
 @pytest.mark.integration
 class TestClass:
-    dst = pathlib.Path(DATA_DIR) / "md" / "fixtures"
+    dst = pathlib.Path(DATA_DIR) / "md" / "_fixtures"
 
     @classmethod
     def setup_class(cls):
@@ -19,7 +19,7 @@ class TestClass:
         2. run the main function
         """
         shutil.rmtree(cls.dst, ignore_errors=True)
-        copy_input_files_to_md_dir(pathlib.Path("tests/fixtures/"))
+        copy_input_files_to_md_dir(pathlib.Path("tests/_fixtures/"))
 
     def test_copying_root_and_chapters(self):
         expected = [

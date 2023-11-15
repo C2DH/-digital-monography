@@ -6,7 +6,7 @@ from src.utils.read_config import (
     is_root_in_chapters,
 )
 
-CONFIG_PATH = pathlib.Path("/tests/fixtures/")
+CONFIG_PATH = pathlib.Path("/tests/_fixtures/")
 
 
 def test_config_name():
