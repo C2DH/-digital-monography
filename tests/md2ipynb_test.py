@@ -49,14 +49,38 @@ class TestClass:
             return {"id": "", "cell_type": "", "source": "", "metadata": {}}
 
     def test_h1_heading(self):
-        h1 = self.simple_md["cells"][0]
+        h1 = self._find_cell(self.simple_md, "# Simple CommonMark")
         assert h1["cell_type"] == "markdown"
         assert h1["source"] == "# Simple CommonMark"
 
     def test_simple_paragraph(self):
-        p = self.simple_md["cells"][1]
+        p = self._find_cell(self.simple_md, "Simplest possible ")
+        print('type(p["source"])', type(p["source"]))
         assert p["cell_type"] == "markdown"
         assert p["source"] == "Simplest possible markdown."
+
+    def test_code_block_splitting(self):
+        cb = self._find_cell(self.simple_md, "```python")
+        assert cb["source"].endswith("cowsay('Code block')\n```")
+
+    # def test_code_block_cell_type(self):
+    #     """
+    #     Currently the transformation does not properly assign cell type
+    #     for other type than "markdown".
+    #     TODO
+    #     """
+    #     cb = self._find_cell(self.simple_md, "python\nimport")
+    #     assert cb["cell_type"] == "code"
+
+    # def test_myst_code_block_splitting(self):
+    #     """
+    #     Currently the transformation splits myst directive blocks (incl. code-cells)
+    #     on empty lines.
+    #     TODO
+    #     """
+    #     print(self.myst_md)
+    #     cb = self._find_cell(self.myst_md, ":::{code-cell}")
+    #     assert cb["source"].endswith("display=False)\n:::")
 
     def test_write_notebooks(self):
         expected = [
