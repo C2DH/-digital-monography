@@ -12,6 +12,3 @@ table_of_contents:
     - file: markdown_guidelines.md
     - file: unsupported_markdown.md
     - file: diagrams.md
-    - file: introduction.md
-    - file: ch1.md
-    - file: ch2.md
