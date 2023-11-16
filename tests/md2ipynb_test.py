@@ -1,6 +1,8 @@
 import pathlib
 import shutil
+import typing as t
 
+import nbformat as nbf
 import pytest
 
 from src.constants import DATA_DIR
@@ -37,6 +39,14 @@ class TestClass:
                 cls.myst_md = nb
         _write_notebooks(cls.notebooks)
         _remove_md_files(slug)
+
+    def _find_cell(
+        self, nb: nbf.notebooknode.NotebookNode, s: str
+    ) -> dict[str, t.Any]:
+        try:
+            return next(c for c in nb["cells"] if c["source"].startswith(s))
+        except StopIteration:
+            return {"id": "", "cell_type": "", "source": "", "metadata": {}}
 
     def test_h1_heading(self):
         h1 = self.simple_md["cells"][0]
