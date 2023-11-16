@@ -266,6 +266,40 @@ The `image` directive allows you to customize:
 :align: center
 :::
 
+### Videos
+
+**Syntax**
+
+```
+![](./videos/vid-sample.mp4) 
+```
+
+**Result**
+
+![](./videos/vid-sample.mp4)
+
+### YouTube/Vimeo videos <sup>(MyST feature)</sup>
+
+If your video is hosted on one of supported platforms (at the time of writing of this document: on YouTube and on Vimeo) you can embed the video using the url. Note that the book will then be dependent on that external source - if deleted, the video will not be rendered. Also, just copying the url to video might not work. You should create a special link. Usually, there is a `Share > Embed Video` option.
+
+**Syntax**
+
+```
+:::{iframe} https://www.youtube.com/embed/_TycjDn9WYE?si=HJAZlky46zWndbLE
+:width: 50%
+An embedded video with a caption
+:::
+```
+
+**Result**
+
+:::{iframe} https://www.youtube.com/embed/_TycjDn9WYE?si=HJAZlky46zWndbLE
+:width: 50%
+An embedded video with a caption
+:::
+
+Please read the [MyST guide](https://mystmd.org/guide/figures#youtube-videos) for more details.
+
 ## Tables <sup>(MyST feature)</sup>
 
 ### Markdown tables <sup>(MyST feature)</sup>
@@ -438,6 +472,155 @@ Text.
 
 See the [MyST guide](https://mystmd.org/guide/admonitions) for the implementation details.
 
+## Diagrams <sup>(MyST feature)</sup>
+
+MyST supports [mermaid diagrams](https://mermaid.js.org/). Therefore, it should be possible to include diagrams in your book/article using the `{mermaid}` directive, for example
+* flowcharts
+* sequence diagrams
+* class diagrams
+* state diagrams
+* entity relationship diagrams
+* user journey diagrams
+* Gantt
+* pie charts
+* quadrant charts
+* requirement diagram
+* Gitgraph (Git) diagrams
+* C4 diagrams
+* mindmaps
+* timeline
+* Zenuml
+* Sankey
+* XYCharts
+
+Sadly, this does not always render properly. Be sure to check the [mermaid documentation](https://mermaid.js.org/intro/getting-started.html) and the [MyST guide](https://mystmd.org/guide/diagrams) for the more information.
+
+Below you can find some implementation examples.
+
+### Flowchart
+
+**Syntax**
+
+```
+:::{mermaid}
+flowchart LR
+    A[Hard edge] -->|Link text| B(Round edge)
+    B --> C{Decision}
+    C -->|One| D[Result one]
+    C -->|Two| E[Result two]
+:::
+```
+
+**Result**
+
+:::{mermaid}
+flowchart LR
+    A[Hard edge] -->|Link text| B(Round edge)
+    B --> C{Decision}
+    C -->|One| D[Result one]
+    C -->|Two| E[Result two]
+:::
+
+See [docs](https://mermaid.js.org/syntax/flowchart.html).
+
+### Sequence diagrams
+
+**Syntax**
+
+```
+:::{mermaid}
+sequenceDiagram
+    participant Alice
+    participant John
+    link Alice: Dashboard @ https://dashboard.contoso.com/alice
+    link Alice: Wiki @ https://wiki.contoso.com/alice
+    link John: Dashboard @ https://dashboard.contoso.com/john
+    link John: Wiki @ https://wiki.contoso.com/john
+    Alice->>John: Hello John, how are you?
+    John-->>Alice: Great!
+    Alice-)John: See you later!
+:::
+```
+
+**Result**
+
+:::{mermaid}
+sequenceDiagram
+    participant Alice
+    participant John
+    link Alice: Dashboard @ https://dashboard.contoso.com/alice
+    link Alice: Wiki @ https://wiki.contoso.com/alice
+    link John: Dashboard @ https://dashboard.contoso.com/john
+    link John: Wiki @ https://wiki.contoso.com/john
+    Alice->>John: Hello John, how are you?
+    John-->>Alice: Great!
+    Alice-)John: See you later!
+:::
+
+See [docs](https://mermaid.js.org/syntax/sequenceDiagram.html)
+
+### Gantt diagram
+
+**Syntax**
+
+```
+:::{mermaid}
+gantt
+    title A Gantt Diagram
+    dateFormat YYYY-MM-DD
+    section Section
+        A task          :a1, 2014-01-01, 30d
+        Another task    :after a1, 20d
+    section Another
+        Task in Another :2014-01-12, 12d
+        another task    :24d
+:::
+```
+
+**Result**
+
+:::{mermaid}
+gantt
+    title A Gantt Diagram
+    dateFormat YYYY-MM-DD
+    section Section
+        A task          :a1, 2014-01-01, 30d
+        Another task    :after a1, 20d
+    section Another
+        Task in Another :2014-01-12, 12d
+        another task    :24d
+:::
+
+See [docs](https://mermaid.js.org/syntax/gantt.html).
+
+### Pie chart
+
+**Syntax**
+
+```
+:::{mermaid}
+pie showData
+    title Key elements in Product X
+    "Calcium" : 42.96
+    "Potassium" : 50.05
+    "Magnesium" : 10.01
+    "Iron" :  5
+:::
+```
+
+**Result**
+
+:::{mermaid}
+pie showData
+    title Key elements in Product X
+    "Calcium" : 42.96
+    "Potassium" : 50.05
+    "Magnesium" : 10.01
+    "Iron" :  5
+:::
+
+See [docs](https://mermaid.js.org/syntax/pie.html).
+
 ## Math <sup>(MyST feature)</sup>
 
 MyST syntax derives from the ${LaTeX}$. To get started with the math syntax, please see the [documentation](https://www.latex-project.org/help/documentation/).
@@ -558,6 +741,58 @@ My content.[^some-text]
 [^some-text]: A second footnote.
 
 See the [the MyST guide](https://mystmd.org/guide/typography#footnotes) for more details.
+
+## Citations <sup>(MyST feature)</sup>
+
+One of the requirements for a publication in this system is inclusion of a bibliography writen in the BibTeX syntax. We highly recommend managing your bibliographies using the [Zotero tool](https://www.zotero.org/), exporting `.bib` file and uploading this file alongside the rest of your book/article.
+
+To cite your sources, use `@` character followed by the identifier from your BibTeX file. Prefixes and suffixes are also allowed. Take the example of such BibTex references:
+
+```
+@article{perneger_writing_2004,
+	title = {Writing a research article: advice to beginners},
+	volume = {16},
+	issn = {1464-3677},
+	url = {https://doi.org/10.1093/intqhc/mzh053},
+	doi = {10.1093/intqhc/mzh053},
+	abstract = {Writing research papers does not come naturally to most of us. The typical research paper is a highly codified rhetorical form. Knowledge of the rules—some explicit, others implied—goes a long way toward writing a paper that will get accepted in a peer-reviewed journal.},
+	number = {3},
+	urldate = {2023-11-16},
+	journal = {International Journal for Quality in Health Care},
+	author = {Perneger, Thomas V. and Hudelson, Patricia M.},
+	month = jun,
+	year = {2004},
+	pages = {191--192},
+}
+
+@book{holliday_doing_2007,
+	edition = {2},
+	title = {Doing and {Writing} {Qualitative} {Research}},
+	isbn = {978-1-4129-1130-6},
+	url = {https://doi.org/10.4135/9781446287958},
+	doi = {10.4135/9781446287958},
+	abstract = {This book provides accessible advice for novice researchers on where to begin and how to proceed. But much more than a simple manual, it also guides the more experience researcher through the social, cultural, and political complexities involved in every step of the way. It is an essential tool for students in all disciplines that engage in qualitative research, including sociology, applied linguistics, management, sport science, health studies and education.},
+	publisher = {SAGE Publications Ltd},
+	author = {Holliday, Adrian},
+	year = {2007},
+}
+```
+
+With such definitions in your `.bib` file, you can reference these sources in your writing. Here are some ways in which you may want to format your citations (remember to follow the publisher guidelines and to stay consistent):
+
+| Example | Renders | Note |
+|---|---|---|
+| `@holliday_doing_2007` | @holliday_doing_2007 | Citation without brackets |
+| `[@holliday_doing_2007]` | [@holliday_doing_2007] | Citation with brackets (*recommended*) |
+| `[@holliday_doing_2007; @perneger_writing_2004]` | [@holliday_doing_2007; @perneger_writing_2004] | Multiple citations |
+| `[@holliday_doing_2007, p. 100]` | [@holliday_doing_2007, p. 100] | Page number as a suffix example |
+| `[@holliday_doing_2007, chap. 2]` | [@holliday_doing_2007, chap. 2] | Chapter as a suffix example |
+| `[e.g. @holliday_doing_2007, p. 100; @perneger_writing_2004]` | [e.g. @holliday_doing_2007, p. 100; @perneger_writing_2004] | Example of 'e.g.' prefix |
+| ``` {cite}`{see}holliday_doing_2007{fig 12}` ``` | {cite}`{see}holliday_doing_2007{fig 12}` | Example of 'see' prefix and 'figure 12' suffix combined |
+
+Note that by citing the BibTeX sources the system automatically creates a bibliography at the end of the document. Scroll down to find it in this document.
+
+For more information, see the [MyST guide](https://mystmd.org/guide/citations).
 
 ## Disclaimer
 
