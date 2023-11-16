@@ -34,7 +34,7 @@ Please remember that reading continuous blocks of text from a screen can be more
 
 ```
     Do not add tabs or spaces at the start of a paragraph.
-Such indentation has a special meaning. Using it might lead to unindended formatting.
+Such indentation has a special meaning. Using it might lead to unintended formatting.
 ```
 
 ### Italics
@@ -110,6 +110,8 @@ A list containing non-ordered bullet points can be constructed with the `-`, `+`
 - you can use `-` character
 + you can use `+` character
 * you can use `*` character
+* whatever you will choose...
+* ...be consistent
 ```
 
 **Result**
@@ -117,12 +119,14 @@ A list containing non-ordered bullet points can be constructed with the `-`, `+`
 - you can use `-` character
 + you can use `+` character
 * you can use `*` character
+* whatever you will choose...
+* ...be consistent
 
 Note that using different characters for each bullet point can cause the software to treat the list as a collection of independent bullets (e.g. each bullet can have it's own Jupyter Lab cell). You should be consistent in the bullet character to use.
 
 ___
 
-Lists can be indented using double spaces (`  `):
+Lists can be indented using double spaces:
 
 **Syntax**
 
@@ -144,7 +148,7 @@ Lists can be indented using double spaces (`  `):
 
 ### Ordered list marker
 
-An ordered list can be written using an arabic numbered followed by `.` or `)`.
+An ordered list can be written using an arabic numbered followed by `"."` or `")"`.
 
 **Syntax**
 
@@ -314,39 +318,37 @@ You can insert a block of text separate from the rest of the page with a use of 
 
 ```
 > Example of the `> ` syntax.
+> - CommonMark specification
 ```
 
 **Result**
 
 > Example of the `> ` syntax.
+> - CommonMark specification
 
 **Syntax**
 
 ```
-> You **can** also use *markdown* in your block quotes.
+> Here is extended example of the "> " syntax. Note that
+> > you can nest your blocks.
 > 
-> In addition,
-> > you can also nest your block.
-> 
-> use `-` character to specify the author of a given quote.
+> Use the "-" character to specify the author of a given quote.
 > - Author Unknown
 ```
 
 **Result**
 
-> You **can** use *markdown* in your block quotes.
+> Here is extended example of the "> " syntax. Note that
+> > you can nest your blocks.
 > 
-> In addition,
-> > you can nest your block.
-> 
-> use `-` character to specify the author of a given quote.
+> Use the "-" character to specify the author of a given quote.
 > - Author Unknown
 
 See the details in the [CommonMark specification](https://spec.commonmark.org/0.30/#block-quotes).
 
 ### Admonitions <sup>(MyST feature)</sup>
 
-> Admonitions highlight a particular block of text that exists slightly apart from the narrative of your page, such as a note or a warning.
+Admonitions highlight a particular block of text that exists slightly apart from the narrative of your page, such as a note or a warning.
 
 **Syntax**
 
@@ -447,8 +449,6 @@ See the [MyST guide](https://mystmd.org/guide/math) for more details on the MyST
 | --- | --- |
 | ```{math}`e=mc^2` ``` | {math}`e=mc^2` |
 
-<!-- {math}`e=mc^2`. -->
-
 ### Equation blocks <sup>(MyST feature)</sup>
 
 **Syntax**
@@ -495,16 +495,6 @@ $$
 
 $$ \label{one-liner} Ax=b $$
 
-### Proofs, Theorems and Algorithms <sup>(MyST feature)</sup>
-
-#### TODO
-
-* https://mystmd.org/guide/proofs-and-theorems
-
-## Diagrams <sup>(MyST feature)</sup>
-
-#### TODO
-
 ## Glossaries, Terms and Abbreviations
 
 **Syntax**
@@ -547,20 +537,9 @@ A use of glossaries enables us to reference certain terms in our books/articles.
 
 Please see the [MyST guide](https://mystmd.org/guide/glossaries-and-terms) on how to create a glossary.
 
-## Table of contents <sup>(MyST feature)</sup>
-
-Our software allows you to automatically generate and display table of contents. Note that the structure of the document will be determined by the heading and not by your configuration file.
-
-**Syntax**
-
-```
-:::{tableofcontents}
-:::
-```
-
 ## Footnotes <sup>(MyST feature)</sup>
 
-Using MyST[^ref-to-footnotes] variant enables us to use footnotes in our markdown files.
+Using MyST[^ref-to-footnotes] markdown variant enables us to use footnotes in our files.
 
 Please note the syntax of the footnotes. `My content.[^some-text]` in your content's body and `[^some-text]: Footnote.` after it.
 
@@ -582,4 +561,4 @@ See the [the MyST guide](https://mystmd.org/guide/typography#footnotes) for more
 
 ## Disclaimer
 
-This guidelines were prepared in Q4 2023 for CommonMark v0.30 and MyST v0.0.4. and are up to date as of the date of writing of this document. The guidelines herein and the Markdown specification is provided "as is", without warranty of any kind, express or implied.
+The herein guidelines were prepared in Q4 2023 for CommonMark v0.30 and MyST v0.0.4. and are up to date as of the date of writing of this document. The guidelines and the Markdown specification is provided "as is", without warranty of any kind, express or implied.

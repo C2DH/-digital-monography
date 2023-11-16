@@ -19,6 +19,17 @@ Read more:
 * [Plain LaTeX template](https://github.com/myst-templates/plain_latex)
 * [Frontmatter](https://mystmd.org/guide/frontmatter)
 
+## Table of contents <sup>(MyST feature)</sup>
+
+Our software allows you to automatically generate and display table of contents. Note that the structure of the document will be determined by the heading and not by your configuration file.
+
+**Syntax**
+
+```
+:::{tableofcontents}
+:::
+```
+
 ### Strikethrough
 
 ```
