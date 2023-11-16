@@ -17,8 +17,6 @@ from mdit_py_plugins.myst_role import myst_role_plugin
 from src.constants import CONFIG_NAME, DATA_DIR
 from src.utils import (
     BookConfigParser,
-    BookMetadata,
-    TableOfContents,
     config_logging,
     copy_static_files,
     create_book_subdir,
@@ -46,18 +44,6 @@ class MystMetadataParsingError(Exception):
 
 class MystParsingError(Exception):
     """Error when parsing myst formatted text"""
-
-
-# def is_myst_available():
-#     """Whether the markdown-it-py package is available."""
-#     return MarkdownIt is not None
-
-
-# def raise_if_myst_is_not_available():
-#     if not is_myst_available():
-#         raise ImportError(
-#             "The MyST Markdown format requires python >= 3.6 and markdown-it-py~=1.0"
-#         )
 
 
 def strip_blank_lines(text: str) -> str:
@@ -325,7 +311,7 @@ def myst_to_notebook(
     return notebook
 
 
-def write_notobook(
+def _write_notobook(
     nb: nbf.notebooknode.NotebookNode,
     fp: pathlib.PurePath,
     capture_validation_error=None,
@@ -349,14 +335,25 @@ def _copy_content_files(slug: str):
         )
 
 
-def _transform_md_files(slug: str):
+def _transform_md_files(
+    slug: str,
+) -> dict[pathlib.PurePath, nbf.notebooknode.NotebookNode]:
     src_dir = pathlib.Path(f"{DATA_DIR}/ipynb/{slug}")
+    notebooks = {}
     for md_path in src_dir.glob("*.md"):
         logger.info(f"Transforming the file '{md_path}' to '.ipynb'.")
         nb_path = _get_new_ipynb_filepath(md_path)
         with open(md_path, encoding="utf-8") as f:
             nb = myst_to_notebook(f.read())
-        write_notobook(nb, nb_path)
+            notebooks[nb_path] = nb
+    return notebooks
+
+
+def _write_notebooks(
+    notebooks: dict[pathlib.PurePath, nbf.notebooknode.NotebookNode]
+) -> None:
+    for nb_path, nb in notebooks.items():
+        _write_notobook(nb, nb_path)
         logger.info(f"Transforming the file to '{nb_path}' ended.")
 
 
@@ -372,7 +369,7 @@ def _remove_md_files(slug: str) -> None:
 
 if __name__ == "__main__":
     stdout_hero("md2ipynb")
-    logger.info("New process: transforming .md files to a .ipynb file.")
+    logger.info("New process: transforming .md files to a .ipynb files.")
     args = parser.parse_args()
     bc = BookConfigParser(args.project_path)
     bc.open_book_config()
@@ -385,5 +382,6 @@ if __name__ == "__main__":
         pathlib.Path(DATA_DIR) / "ipynb" / args.project_path.name,
     )
     _copy_content_files(slug)
-    _transform_md_files(slug)
+    notebooks = _transform_md_files(slug)
+    _write_notebooks(notebooks)
     _remove_md_files(slug)
