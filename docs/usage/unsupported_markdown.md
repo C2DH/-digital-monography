@@ -131,25 +131,53 @@ Be sure to check the [mermaid documentation](https://mermaid.js.org/intro/gettin
 
 ### Citations <sup>(MyST feature)</sup>
 
-#### Referencing with a DOI Link <sup>(MyST feature)</sup>
-
-For automatic citation management MyST supports DOI<sup>(R)</sup> citations. DOI (Digital Object Identifier) number is designed to uniquely and persistently identify objects (incl. books, articles and so on). 
-The DOI system offers a persistent actionable identifier for use on digital networks.
-If you want to find a DOI number for a given literary work, you can query this [free database](https://www.crossref.org/guestquery). Please note however, that not every book or article has a DOI id. If one has, you can utilize it by using the following syntax.
-
-| Syntax | Result |
-| --- | --- |
-| `See [](doi:10.1145/3411764.3445648)` | See [](doi:10.1145/3411764.3445648) |
-
-Note that using MyST citation automatically creates a bibliography at the end of the document. Scroll down to find it in this document.
-
-You can also read more on DOI System [here](https://www.doi.org/).
-
-#### Including BibTeX file <sup>(MyST feature)</sup>
-
-**TODO**
-
 One of the requirements for a publication in this system is inclusion of a bibliography writen in the BibTeX syntax. We highly recommend managing your bibliographies using the [Zotero tool](https://www.zotero.org/), exporting `.bib` file and uploading this file alongside the rest of your book/article.
+
+To cite your sources, use `@` character followed by the identifier from your BibTeX file. Prefixes and suffixes are also allowed. Take the example of such BibTex references:
+
+```
+@article{perneger_writing_2004,
+	title = {Writing a research article: advice to beginners},
+	volume = {16},
+	issn = {1464-3677},
+	url = {https://doi.org/10.1093/intqhc/mzh053},
+	doi = {10.1093/intqhc/mzh053},
+	abstract = {Writing research papers does not come naturally to most of us. The typical research paper is a highly codified rhetorical form. Knowledge of the rules—some explicit, others implied—goes a long way toward writing a paper that will get accepted in a peer-reviewed journal.},
+	number = {3},
+	urldate = {2023-11-16},
+	journal = {International Journal for Quality in Health Care},
+	author = {Perneger, Thomas V. and Hudelson, Patricia M.},
+	month = jun,
+	year = {2004},
+	pages = {191--192},
+}
+
+@book{holliday_doing_2007,
+	edition = {2},
+	title = {Doing and {Writing} {Qualitative} {Research}},
+	isbn = {978-1-4129-1130-6},
+	url = {https://doi.org/10.4135/9781446287958},
+	doi = {10.4135/9781446287958},
+	abstract = {This book provides accessible advice for novice researchers on where to begin and how to proceed. But much more than a simple manual, it also guides the more experience researcher through the social, cultural, and political complexities involved in every step of the way. It is an essential tool for students in all disciplines that engage in qualitative research, including sociology, applied linguistics, management, sport science, health studies and education.},
+	publisher = {SAGE Publications Ltd},
+	author = {Holliday, Adrian},
+	year = {2007},
+}
+```
+
+With such definitions in your `.bib` file, you can reference these sources in your writing. Here are some ways in which you may want to format your citations (remember to follow the publisher guidelines and to stay consistent):
+
+| Example | Render | Note |
+|---|---|---|
+| `@holliday_doing_2007` | @holliday_doing_2007 | Citation without brackets |
+| `[@holliday_doing_2007]` | [@holliday_doing_2007] | Citation with brackets (*recommended*) |
+| `[@holliday_doing_2007; @perneger_writing_2004]` | [@holliday_doing_2007; @perneger_writing_2004] | Multiple citations |
+| `[@holliday_doing_2007, p. 100]` | [@holliday_doing_2007, p. 100] | Page number as a suffix example |
+| `[@holliday_doing_2007, chap. 2]` | [@holliday_doing_2007, chap. 2] | Chapter as a suffix example |
+| `[e.g. @holliday_doing_2007, p. 100; @perneger_writing_2004]` | [e.g. @holliday_doing_2007, p. 100; @perneger_writing_2004] | Example of 'e.g.' prefix |
+| ``` {cite}`{see}holliday_doing_2007{fig 12}` ``` | {cite}`{see}holliday_doing_2007{fig 12}` | Example of 'see' prefix and 'figure 12' suffix combined |
+
+Note that by citing the BibTeX sources the system automatically creates a bibliography at the end of the document. Scroll down to find it in this document.
 
 For more information, see the [MyST guide](https://mystmd.org/guide/citations).
 
@@ -173,7 +201,6 @@ This is a [span with an `id` attribute]{#span-target}.
 
 :::{note}
 :name: directive-target
-
 This is a directive with a `name` option
 :::
 
