@@ -8,6 +8,7 @@ from src.utils import (
     BookConfigParser,
     TableOfContents,
     config_logging,
+    copy_bibliography,
     copy_static_files,
     create_book_subdir,
     get_ordered_filename,
@@ -111,6 +112,10 @@ def copy_input_files_to_md_dir(project_path: pathlib.PurePath) -> None:
     slug = bc.slug
     create_book_subdir("md", slug)
     copy_static_files(
+        project_path,
+        pathlib.Path(DATA_DIR) / "md" / project_path.name,
+    )
+    copy_bibliography(
         project_path,
         pathlib.Path(DATA_DIR) / "md" / project_path.name,
     )

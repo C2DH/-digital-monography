@@ -1,4 +1,8 @@
-from src.utils.file_mgnt import copy_static_files, create_book_subdir  # noqa
+from src.utils.file_mgnt import (  # noqa
+    copy_bibliography,
+    copy_static_files,
+    create_book_subdir,
+)
 from src.utils.log_mgnt import (  # noqa
     config_logging,
     stdout_hero,

@@ -18,6 +18,7 @@ from src.constants import CONFIG_NAME, DATA_DIR
 from src.utils import (
     BookConfigParser,
     config_logging,
+    copy_bibliography,
     copy_static_files,
     create_book_subdir,
     stdout_hero,
@@ -378,6 +379,10 @@ if __name__ == "__main__":
     slug = bc.slug
     create_book_subdir("ipynb", slug)
     copy_static_files(
+        pathlib.Path(DATA_DIR) / "md" / args.project_path.name,
+        pathlib.Path(DATA_DIR) / "ipynb" / args.project_path.name,
+    )
+    copy_bibliography(
         pathlib.Path(DATA_DIR) / "md" / args.project_path.name,
         pathlib.Path(DATA_DIR) / "ipynb" / args.project_path.name,
     )
