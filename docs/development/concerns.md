@@ -1,5 +1,10 @@
 # Concerns
 
+## Dependencies
+
+* MyST, mystmd and the whole ecosystem - currently open sourced, but the licencing can always change.
+* docx - Microsoft can change the output of its word processor without notice.
+
 ## Data transformation (e.g. transforming file from .docx to .md)
 
 Please remember that markdown is an ambiguous format.
