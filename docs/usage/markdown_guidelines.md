@@ -300,9 +300,9 @@ An embedded video with a caption
 
 Please read the [MyST guide](https://mystmd.org/guide/figures#youtube-videos) for more details.
 
-## Tables <sup>(MyST feature)</sup>
+## Tables
 
-### Markdown tables <sup>(MyST feature)</sup>
+### Markdown tables
 
 For tables, MyST uses the [GitHub Markdown syntax](https://github.github.com/gfm/#tables-extension-).
 
@@ -341,6 +341,49 @@ You don't have to be strict with formatting the table, as long as you use the pr
 | --- | -------- |
 | Row 1, Column 1 | Row 1, Column 2 |
 | Row 2, Column 1 | Row 2, Column 2 |
+
+### MyST tables <sup>(MyST feature)</sup>
+
+It is advisable to use the "`{list-table}`" directive. The following syntax is currently supported:
+
+**Syntax**
+
+```
+:::{list-table} Table caption
+:header-rows: 1
+:name: examplary-table
+
+* - Header 1
+  - Header 2
+* - Row 1, Column 1
+  - Row 1, Column 2
+* - Row 2, Column 1
+  - Row 2, Column 2
+:::
+```
+
+**Result**
+
+:::{list-table} Table caption
+:header-rows: 1
+:align: center
+:name: examplary-table
+
+* - Header 1
+  - Header 2
+* - Row 1, Column 1
+  - Row 1, Column 2
+* - Row 2, Column 1
+  - Row 2, Column 2
+:::
+
+This will allow you to reference the table in your book. 
+
+| Syntax | Result |
+| --- | --- |
+| `Mention of [your table](#examplary-table) in text` | Mention of [your table](#examplary-table) in text |
+
+Moreover, the table label will auto increment itself.
 
 ## Container blocks
 
