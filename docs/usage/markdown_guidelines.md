@@ -241,30 +241,53 @@ You can embed an image by linking to an image file.
 | --- | --- |
 | `![Logo of the University](./images/uni_logo.png)` | ![Logo of the University](./images/uni_logo.png) |
 
-### Using directives to format your image <sup>(MyST feature)</sup>
+### Figures <sup>(MyST feature)</sup>
 
-The `image` directive allows you to customize:
-* `width`
-* `alignment`
-* `classes` to add to the image
+To better organize your images, use the "`{figure}`" directive.
 
 **Syntax**
 
 ```
-:::{image} ./images/uni_logo.png
-:name: uni-logo
+:::{figure} ./images/uni_logo.png
+:name: uni-logo-img
 :width: 100px
 :align: center
+You can add caption to your image
 :::
 ```
 
 **Result**
 
-:::{image} ./images/uni_logo.png
-:name: uni-logo
+:::{figure} ./images/uni_logo.png
+:name: uni-logo-img
 :width: 100px
 :align: center
+You can add caption to your image
 :::
+
+Figures can also be used to handle videos.
+
+```
+:::{figure} ./videos/vid-sample.mp4
+:name: vid-sample-as-fig
+Video caption.
+:::
+```
+
+**Result**
+
+:::{figure} ./videos/vid-sample.mp4
+:name: vid-sample-as-fig
+Video caption.
+:::
+
+This syntax allows you to cross-reference the images. We recommend using this method instead of manually managing figures in your writing.
+
+| Syntax | Result |
+| --- | --- |
+| `See [the video](#vid-sample-as-fig).` | See [the video](#vid-sample-as-fig). |
+
+All figures are auto incremented. No more having to change the figure numbers by hand!
 
 ### Videos
 
