@@ -13,8 +13,3 @@ In this guide, you will learn:
 
 This document specifies the basic syntax in which your book or article should be written to benefit from the features provided by our software.
 You will also learn some best practices and tips for writing markdown files that are compatible with our application.
-
-## Table of contents
-
-```{tableofcontents}
-```
