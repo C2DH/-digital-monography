@@ -48,13 +48,13 @@ docker compose run mdlint "/home/app_user/data/md/**/*.md" >> "logs/md_linting.l
 ### Transform .md to .ipynb
 
 ```sh
-docker compose exec main python src/md2ipynb.py
+docker compose exec main python src/md2ipynb.py "path/to/source"
 ```
 
 ### Transform .ipynb to .html (unfinished)
 
 ```sh
-docker compose exec main python src/_ipynb2html.py
+docker compose exec main python src/_ipynb2html.py "path/to/source"
 ```
 
 ### Transform ... to JATS .xml
@@ -64,7 +64,7 @@ docker compose exec main python src/_ipynb2html.py
 ### Transform .html to .pdf (unfinished)
 
 ```sh
-docker compose exec main python src/_html2pdf.py
+docker compose exec main python src/_html2pdf.py "path/to/source"
 ```
 
 ## Running tests
