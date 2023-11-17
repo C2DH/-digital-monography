@@ -16,7 +16,13 @@ docker compose up -d
 ### Transform .docx to .md
 
 ```sh
-docker compose exec main python src/docx2md.py
+docker compose exec main python src/docx2md.py "path/to/source"
+```
+
+You can also point to a github zip archive.
+
+```sh
+docker compose exec main python src/docx2md.py "https://api.github.com/repos/kaminski-pawel/for-a-new-hermeneutics-of-practice-in-digital-public-history/zipball/v0.1.0"
 ```
 
 ### Run markdown verification

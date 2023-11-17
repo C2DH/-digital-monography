@@ -1,7 +1,15 @@
 import argparse
+
+# import tarfile
+import io
+import json
 import logging
 import pathlib
 import shutil
+import zipfile
+
+import requests
+import urllib3
 
 from src.constants import CONFIG_NAME, DATA_DIR
 from src.utils import (
@@ -14,6 +22,7 @@ from src.utils import (
     get_ordered_filename,
     is_root_in_chapters,
     stdout_hero,
+    write_myst_yml_file,
 )
 
 config_logging()
@@ -22,11 +31,67 @@ config_logging()
 logger = logging.getLogger("root.docx2md")
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    "project_path",
-    type=pathlib.Path,
+    "source",
+    type=str,
+    # type=pathlib.Path,
     help=f"Select the project directory, in which there should be {CONFIG_NAME}, "
     "bibliography and content files.",
 )
+
+
+# download from github
+
+
+def is_on_github(source: str):
+    is_githubapi = source.startswith("https://api.github.com/")
+    if is_githubapi and "zipball" not in source:
+        raise Exception(
+            "Invalid github link. "
+            "The source should point to a '.zip' file."
+            "Example of a valid link is "
+            "'https://api.github.com/repos/OWNER/REPO/zipball/REF'."
+            # "The source should point to a '.tar.qz' file."
+        )
+    return is_githubapi
+
+
+def download_input_files_from_github(url: str) -> pathlib.Path:
+    headers = {
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+    }
+    logger.info(f"Downloading package from {url}.")
+    p = pathlib.Path(DATA_DIR) / "input"
+    slug = ""
+    r = requests.get(url, headers=headers)
+    if r.status_code == 200:
+        logger.info(f"Package from {url} successfully downloaded.")
+        logger.info(f"Package size: {len(r.content)} bytes.")
+        zf = zipfile.ZipFile(io.BytesIO(r.content))
+        slug = _get_repo_name(zf.filelist)
+        (p / slug).mkdir(parents=True, exist_ok=True)
+        zf.extractall(path=p)
+    else:
+        logger.info(
+            f"Request to url {url} was unsuccessful. Response: {json.dumps(r.json())}."
+        )
+        raise requests.exceptions.InvalidURL
+    return p / slug
+
+
+def _get_repo_name(filelist: list[zipfile.ZipInfo]) -> str:
+    try:
+        zipinfo = next(zi for zi in filelist if zi.is_dir())
+        return zipinfo.filename
+    except (StopIteration, IndexError, AttributeError):
+        logger.error(
+            "Zip archive seems to be invalid. The system expects to find a "
+            "dir at the repo's root. No such directory was found."
+        )
+        raise Exception("No directory found in the input zip archive.")
+
+
+# copy to md/slug
 
 
 def _copy_content_files(
@@ -119,6 +184,7 @@ def copy_input_files_to_md_dir(project_path: pathlib.PurePath) -> None:
         project_path,
         pathlib.Path(DATA_DIR) / "md" / project_path.name,
     )
+    write_myst_yml_file(pathlib.Path(DATA_DIR) / "md" / project_path.name)
     _copy_content_files(project_path, jb_toc)
 
 
@@ -126,5 +192,9 @@ if __name__ == "__main__":
     stdout_hero("docx2md")
     logger.info("New process: transforming input files to .md files.")
     args = parser.parse_args()
-    project_path = args.project_path
+    source = args.source
+    if is_on_github(source):
+        project_path = download_input_files_from_github(source)
+    else:
+        project_path = pathlib.Path(source)
     copy_input_files_to_md_dir(project_path)
