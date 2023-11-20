@@ -225,11 +225,11 @@ For example, let us assume that your book comprises of two chapters that are loc
 └── chapter_2.md
 ```
 
-Then in your `chapter_1.md` file you can include a link to the `chapter_2.md` using the `[some-text](./chapter_2.md)`.
+Then in your `chapter_1.md` file you can include a link to the `chapter_2.md` using the `[some-text](./chapter_2)`. **Mind, however, that we are omitting the file extension (no ".md").**
 
 | Syntax | Result |
 | --- | --- |
-| `[This text will be displayed](./diagrams.md)` | [This text will be displayed](./diagrams.md) |
+| `[This text will be displayed](./what_is_md)` | [This text will be displayed](./what_is_md) |
 
 ## Multimedia
 
