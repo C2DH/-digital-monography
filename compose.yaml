@@ -2,9 +2,16 @@ version: "3.8"
 services:
   main:
     build: .
+    environment:
+      - PYTHONUNBUFFERED=0
     image: digital-monography-img
     volumes:
       - ./data:/home/app_user/data
       - ./logs:/home/app_user/logs
     stdin_open: true
     tty: true
+
+  mdlint:
+    build: https://github.com/igorshubovych/markdownlint-cli.git
+    volumes:
+      - ./data:/home/app_user/data

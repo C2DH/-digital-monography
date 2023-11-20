@@ -1,0 +1,12 @@
+book_metadata:
+  title: Guidelines
+  author: Pawel Kaminski
+  bibtex_bibfiles:
+    - bibliography.bib
+table_of_contents:
+  format: jb-book
+  root: index.md
+  chapters:
+    - file: input_guidelines.md
+    - file: what_is_md.md
+    - file: markdown_guidelines.md

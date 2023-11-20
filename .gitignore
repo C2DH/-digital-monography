@@ -69,7 +69,7 @@ instance/
 .scrapy
 
 # Sphinx documentation
-docs/_build/
+**/_build/
 
 # PyBuilder
 .pybuilder/
@@ -151,3 +151,9 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# Project specific data
+data/input/*
+data/md/*
+data/ipynb/*
+data/jb/*
