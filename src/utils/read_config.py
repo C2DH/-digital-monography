@@ -5,7 +5,7 @@ import typing as t
 
 import yaml
 
-from src.constants import CONFIG_NAME
+from src.constants import CONFIG_NAME, DEFAULT_MYSTMD_CONFIG
 
 from .log_mgnt import config_logging
 
@@ -142,10 +142,6 @@ class BookConfigParser:
         self._verify_config_syntax()
 
     def _verify_config_existence(self) -> None:
-        # if not issubclass(type(self.project_path), pathlib.PurePath):
-        #     logger.error(
-        #         f"Constructor of {self.__name__} class expects a pathlib.Path."
-        #     )
         if not self.project_path.exists():
             logger.critical(
                 "The selected project directory was "
@@ -176,7 +172,9 @@ class BookConfigParser:
         return self.project_path / self.config_name
 
     def _open_book_config(self) -> tuple[BookMetadata, TableOfContents]:
-        rawconfig = yaml.safe_load(self.config_path.read_text())
+        rawconfig = yaml.safe_load(
+            self.config_path.read_text(encoding="utf-8")
+        )
         jb_config = rawconfig["book_metadata"]
         jb_toc = rawconfig["table_of_contents"]
         return jb_config, jb_toc
@@ -210,3 +208,35 @@ def is_root_in_chapters(
         return next(f for f in chapters if f.get("file", "") == jb_toc["root"])
     except (KeyError, StopIteration):
         return False
+
+
+def _update(d1: dict[str, t.Any], d2: dict[str, t.Any]) -> dict[str, t.Any]:
+    """
+    Recurse over dictionary d2 and update d1 with it's values.
+    Return d1 updated with d2 values.
+    Note that dictionaries inside a list
+    will just be replaced without updating.
+    """
+    for k, v in d2.items():
+        if isinstance(v, dict):
+            d1[k] = _update(d1.get(k, {}), v)
+        else:
+            d1[k] = v
+    return d1
+
+
+def write_myst_yml_file(
+    dst: pathlib.Path,
+    custom_conf: dict[str, t.Any] = None,
+) -> None:
+    # TODO: read config from the config.yaml given in an author's package
+    if custom_conf is None:
+        custom_conf = {}
+    updated_conf = _update(DEFAULT_MYSTMD_CONFIG, custom_conf)
+    if not dst.is_dir():
+        logger.error(
+            f"Cannot write 'myst.yml' file to {dst}. Destination is not a directory."
+        )
+        raise
+    with open(dst / "myst.yml", "w") as f:
+        yaml.dump(updated_conf, f)

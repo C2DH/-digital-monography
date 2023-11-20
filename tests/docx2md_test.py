@@ -38,6 +38,9 @@ class TestClass:
             text = f.read()
         assert text.startswith("# Index")
 
+    def test_myst_yml_creation(self):
+        assert pathlib.Path(self.dst / "myst.yml").exists()
+
     @classmethod
     def teardown_class(cls):
         shutil.rmtree(cls.dst, ignore_errors=True)

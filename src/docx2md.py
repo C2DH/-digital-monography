@@ -11,7 +11,12 @@ import zipfile
 import requests
 import urllib3
 
-from src.constants import CONFIG_NAME, DATA_DIR
+from src.constants import (
+    CONFIG_NAME,
+    DATA_DIR,
+    STATIC_DIR,
+    SYSTEM_SPECIFIC_NAME,
+)
 from src.utils import (
     BookConfigParser,
     TableOfContents,
@@ -170,21 +175,41 @@ def _copy(src: pathlib.PurePath, dst: pathlib.PurePath) -> None:
         raise
 
 
+def _copy_uni_logo(dst: pathlib.PurePath) -> None:
+    """
+    Copy a logo of the University of Luxembourg
+    for rendering on the frontend.
+    """
+    src = pathlib.Path(STATIC_DIR) / "uni_logo.png"
+    dst = dst / "images" / SYSTEM_SPECIFIC_NAME
+    dst.mkdir(parents=True, exist_ok=True)
+    try:
+        shutil.copy(src, dst / "uni_logo.png")
+    except FileNotFoundError:
+        logger.error(
+            f"Copy source not found. {src} does not exist. "
+            f"Cannot copy to {dst}."
+        )
+        raise
+
+
 def copy_input_files_to_md_dir(project_path: pathlib.PurePath) -> None:
     bc = BookConfigParser(project_path)
     bc.open_book_config()
     jb_toc = bc.jb_toc
     slug = bc.slug
+    dst = pathlib.Path(DATA_DIR) / "md" / project_path.name
     create_book_subdir("md", slug)
     copy_static_files(
         project_path,
-        pathlib.Path(DATA_DIR) / "md" / project_path.name,
+        dst,
     )
     copy_bibliography(
         project_path,
-        pathlib.Path(DATA_DIR) / "md" / project_path.name,
+        dst,
     )
-    write_myst_yml_file(pathlib.Path(DATA_DIR) / "md" / project_path.name)
+    write_myst_yml_file(dst)
+    _copy_uni_logo(dst)
     _copy_content_files(project_path, jb_toc)
 
 

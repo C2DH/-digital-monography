@@ -1,7 +1,9 @@
 import pathlib
 
+from src.constants import DEFAULT_MYSTMD_CONFIG
 from src.utils.read_config import (
     BookConfigParser,
+    _update,
     get_ordered_filename,
     is_root_in_chapters,
 )
@@ -98,3 +100,21 @@ def test_get_ordered_name_3():
 def test_get_ordered_name_4():
     fp = pathlib.Path(f"docs/usage/index.md")
     assert get_ordered_filename(1, fp, 1000) == "0001_index"
+
+
+def test_update_myst_config():
+    custom_conf = {
+        "project": {"license": "CC-BY-4.0"},
+        "site": {
+            "actions": [
+                {
+                    "title": "Read more",
+                    "url": "https://www.c2dh.uni.lu",
+                }
+            ]
+        },
+    }
+    config = _update(DEFAULT_MYSTMD_CONFIG, custom_conf)
+    assert config["project"]["license"] == "CC-BY-4.0"
+    assert config["site"]["actions"][0]["title"] == "Read more"
+    assert config["site"]["actions"][0]["url"] == "https://www.c2dh.uni.lu"
