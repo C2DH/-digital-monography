@@ -13,10 +13,15 @@ docker compose up -d
 
 ## Workflow
 
+The workflow performs operations on source files uploaded by a user. The source can be
+* a) a path to a local directory on a disk or
+* b) a url to a zip archive of a github repository.
+As an example, the commands listed below take as exemplary input (a) the usage documentation of this system and (b) the book "For a new hermeneutics of practice in digital public history" hosted on GitHub. Note however, that in the second case (b) only the first command takes the url as an argument and the rest take the name of the "data/input" directory where the package was unzipped.
+
 ### Transform .docx to .md
 
 ```sh
-docker compose exec main python src/docx2md.py "path/to/source"
+docker compose exec main python src/docx2md.py "docs/usage"
 ```
 
 You can also point to a github zip archive.
@@ -30,41 +35,47 @@ docker compose exec main python src/docx2md.py "https://api.github.com/repos/kam
 For now, the project is using [markdownlint](https://github.com/DavidAnson/markdownlint) via the [markdownlint-cli](https://github.com/igorshubovych/markdownlint-cli). Note that this linter only supports _Markdown/CommonMark files_. It won't be able to verify the _MyST_ specification.
 
 ```sh
-docker compose run mdlint "/home/app_user/data/md/<path-to-the-file>.md"
+docker compose run mdlint "/home/app_user/data/md/usage/*.md"
 ```
 
 `markdownlint-cli` supports advanced globbing patterns like `**/*.md` ([more information](https://github.com/isaacs/node-glob/blob/main/README.md#glob-primer)).
 
 ```sh
-docker compose run mdlint "/home/app_user/data/md/<path-to-the-dir>/*.md"
+docker compose run mdlint "/home/app_user/data/md/usage/**/*.md"
 ```
 
 You might also want to redirect stdout and stderr to a log file.
 
 ```sh
-docker compose run mdlint "/home/app_user/data/md/**/*.md" >> "logs/md_linting.log" 2>&1
+docker compose run mdlint "/home/app_user/data/md/usage/*.md" >> "logs/md_linting.log" 2>&1
 ```
 
 ### Transform .md to .ipynb
 
 ```sh
-docker compose exec main python src/md2ipynb.py "path/to/source"
+docker compose exec main python src/md2ipynb.py "docs/usage"
 ```
 
-### Transform .ipynb to .html (unfinished)
+or in case of github repository:
 
 ```sh
-docker compose exec main python src/_ipynb2html.py "path/to/source"
+docker compose exec main python src/md2ipynb.py "data/kaminski-pawel-for-a-new-hermeneutics-of-practice-in-digital-public-history-8cffccd"
+```
+
+### Transform .ipynb to .html (experimental, might break)
+
+```sh
+docker compose exec main python src/_ipynb2html.py "docs/usage"
 ```
 
 ### Transform ... to JATS .xml
 
 [myst-to-jats](https://github.com/executablebooks/mystmd/tree/main/packages/myst-to-jats) can convert a MyST AST to JATS XML.
 
-### Transform .html to .pdf (unfinished)
+### Transform .html to .pdf (experimental, might break)
 
 ```sh
-docker compose exec main python src/_html2pdf.py "path/to/source"
+docker compose exec main python src/_html2pdf.py "docs/usage"
 ```
 
 ## Running tests
