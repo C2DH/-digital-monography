@@ -153,6 +153,7 @@ dmypy.json
 cython_debug/
 
 # Project specific data
+data/input/*
 data/md/*
 data/ipynb/*
 data/jb/*
