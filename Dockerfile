@@ -89,8 +89,17 @@ ENV PYTHONPATH "${PYTHONPATH}:/"
 # Change the user to the previously created __app_user__.
 USER app_user
 
-# Copy application source code from Dockerfile dir in the host 
-# to the `/home/app_user` dir in the container.
+# # Download nvm and load it to the environment variables.
+# # Install mystmd and it's dependencies.
+# # Probably should be moved after 'CMD ["bash"]'...
+# RUN ["/bin/bash", \
+#     "-c", \
+#     "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash && \
+#     source ~/.nvm/nvm.sh && \
+#     nvm install 20.9.0 && \
+#     npm install -g npm && \
+#     npm install -g mystmd@1.1.26"]
+
 COPY . .
 
 # Set bash as default command,
