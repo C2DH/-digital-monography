@@ -16,6 +16,7 @@ docker compose up -d
 The workflow performs operations on source files uploaded by a user. The source can be
 * a) a path to a local directory on a disk or
 * b) a url to a zip archive of a github repository.
+
 As an example, the commands listed below take as exemplary input (a) the usage documentation of this system and (b) the book "For a new hermeneutics of practice in digital public history" hosted on GitHub. Note however, that in the second case (b) only the first command takes the url as an argument and the rest take the name of the "data/input" directory where the package was unzipped.
 
 ### Transform .docx to .md
