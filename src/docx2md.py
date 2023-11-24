@@ -1,15 +1,13 @@
 import argparse
-
-# import tarfile
 import io
 import json
 import logging
 import pathlib
 import shutil
+import urllib
 import zipfile
 
 import requests
-import urllib3
 
 from src.constants import (
     CONFIG_NAME,
@@ -38,10 +36,11 @@ parser = argparse.ArgumentParser()
 parser.add_argument(
     "source",
     type=str,
-    # type=pathlib.Path,
-    help=f"Select the project directory, in which there should be {CONFIG_NAME}, "
-    "bibliography and content files.",
+    help="Select the book directory or api.github zipball, "
+    f"in which there should be {CONFIG_NAME}, bibliography and content files.",
 )
+
+# TODO: add github tarball input handling
 
 
 # download from github
@@ -67,21 +66,39 @@ def download_input_files_from_github(url: str) -> pathlib.Path:
     }
     logger.info(f"Downloading package from {url}.")
     p = pathlib.Path(DATA_DIR) / "input"
+    targetpath = p
     slug = ""
     r = requests.get(url, headers=headers)
     if r.status_code == 200:
         logger.info(f"Package from {url} successfully downloaded.")
         logger.info(f"Package size: {len(r.content)} bytes.")
         zf = zipfile.ZipFile(io.BytesIO(r.content))
-        slug = _get_repo_name(zf.filelist)
-        (p / slug).mkdir(parents=True, exist_ok=True)
+        repo_name = _get_repo_name(zf.filelist)
+        slug = _repo_url_to_slug(url)
+        currpath = p / repo_name
+        targetpath = p / slug
+        currpath = p / repo_name
+        currpath.mkdir(parents=True, exist_ok=True)
         zf.extractall(path=p)
+        if targetpath.exists():
+            shutil.rmtree(targetpath, ignore_errors=True)
+        currpath.rename(targetpath)
     else:
         logger.info(
             f"Request to url {url} was unsuccessful. Response: {json.dumps(r.json())}."
         )
         raise requests.exceptions.InvalidURL
-    return p / slug
+    return targetpath
+
+
+def _repo_url_to_slug(url: str) -> str:
+    """
+    Expects that the url has the following structure:
+    'https://api.github.com/repos/{owner}/{repo}/{zipball|tarball}/{ref}'
+    where 'ref' should be a release version, e.g. v.0.1.0
+    """
+    path_parts = urllib.parse.urlparse(url).path.split("/")
+    return "-".join(path_parts[2:4])
 
 
 def _get_repo_name(filelist: list[zipfile.ZipInfo]) -> str:
