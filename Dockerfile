@@ -15,11 +15,6 @@ COPY /requirements /requirements
 RUN pip install -r requirements/dev.txt
 # RUN pip install --no-cache-dir -r requirements/prod.txt
 
-
-# Install dependencies for transforming .md to .ipynb
-RUN wget https://github.com/jgm/pandoc/releases/download/3.1.9/pandoc-3.1.9-1-amd64.deb &&\
-    dpkg -i pandoc-3.1.9-1-amd64.deb
-
 # Install dependencies for transforming .html to .pdf
 RUN apt-get update && apt-get install -y \
     gconf-service \
