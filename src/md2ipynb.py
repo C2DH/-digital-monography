@@ -5,6 +5,7 @@ import pathlib
 import re
 import shutil
 import typing as t
+import urllib
 from textwrap import dedent
 
 import markdown_it
@@ -29,8 +30,8 @@ config_logging()
 logger = logging.getLogger("root.md2ipynb")
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    "project_path",
-    type=pathlib.Path,
+    "source",
+    type=str,
     help=f"Select the project directory, in which there should be {CONFIG_NAME}, "
     "bibliography and content files.",
 )
@@ -45,6 +46,20 @@ class MystMetadataParsingError(Exception):
 
 class MystParsingError(Exception):
     """Error when parsing myst formatted text"""
+
+
+def _is_on_github(source: str):
+    return source.startswith("https://api.github.com/")
+
+
+def _repo_url_to_slug(url: str) -> str:
+    """
+    Expects that the url has the following structure:
+    'https://api.github.com/repos/{owner}/{repo}/{zipball|tarball}/{ref}'
+    where 'ref' should be a release version, e.g. v.0.1.0
+    """
+    path_parts = urllib.parse.urlparse(url).path.split("/")
+    return "-".join(path_parts[2:4])
 
 
 def strip_blank_lines(text: str) -> str:
@@ -372,19 +387,24 @@ if __name__ == "__main__":
     stdout_hero("md2ipynb")
     logger.info("New process: transforming .md files to a .ipynb files.")
     args = parser.parse_args()
-    bc = BookConfigParser(args.project_path)
+    inputpath = pathlib.Path(DATA_DIR) / "input"
+    if _is_on_github(args.source):
+        project_path = inputpath / _repo_url_to_slug(args.source)
+    else:
+        project_path = inputpath / args.source
+    bc = BookConfigParser(project_path)
     bc.open_book_config()
     jb_config = bc.jb_config
     jb_toc = bc.jb_toc
     slug = bc.slug
     create_book_subdir("ipynb", slug)
     copy_static_files(
-        pathlib.Path(DATA_DIR) / "md" / args.project_path.name,
-        pathlib.Path(DATA_DIR) / "ipynb" / args.project_path.name,
+        pathlib.Path(DATA_DIR) / "md" / project_path.name,
+        pathlib.Path(DATA_DIR) / "ipynb" / project_path.name,
     )
     copy_bibliography(
-        pathlib.Path(DATA_DIR) / "md" / args.project_path.name,
-        pathlib.Path(DATA_DIR) / "ipynb" / args.project_path.name,
+        pathlib.Path(DATA_DIR) / "md" / project_path.name,
+        pathlib.Path(DATA_DIR) / "ipynb" / project_path.name,
     )
     _copy_content_files(slug)
     notebooks = _transform_md_files(slug)
