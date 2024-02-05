@@ -2,4 +2,5 @@ beautifulsoup4==4.12.*
 citeproc-py==0.6.*
 jupyter-book>=0.15.1,<0.16.0
 markdownify==0.11.*
+./mammoth-1.6.1.2-py2.py3-none-any.whl
 pyppeteer>=1.0.2,<1.1.0
