@@ -4,7 +4,7 @@ import shutil
 import pytest
 
 from src.constants import DATA_DIR
-from src.docx2md import copy_input_files_to_md_dir
+from src.prepmd import copy_input_files_to_md_dir
 
 # TODO: add github url as input tests
 
