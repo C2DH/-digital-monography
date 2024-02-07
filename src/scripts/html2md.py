@@ -1,6 +1,7 @@
+import markdownify
 import re
 
-import markdownify
+from md_extraction import BookMetadata, AssetDatapoint, AssetMetadata
 
 line_beginning_re = re.compile(r"^", re.MULTILINE)
 
@@ -25,11 +26,10 @@ def sub_inline_conversion(markup_fn):
 
 
 class MystMdConverter(markdownify.MarkdownConverter):
-    """
-    Overwrite markdownify html2md transformer for the purpose of
-    handling MyST standard and additional features that are specific
-    to the DGT-MON platform.
-    """
+
+    def __init__(self, metadata: BookMetadata, **options):
+        self._metadata = metadata
+        super().__init__(**options)
 
     class Options(markdownify.MarkdownConverter.DefaultOptions):
         heading_style = markdownify.ATX
@@ -43,9 +43,7 @@ class MystMdConverter(markdownify.MarkdownConverter):
         prefix, suffix, text = markdownify.chomp(text)
         identif = el.get("id", "")
         href = el.get("href", "")
-        if href.startswith("#footnote-") and identif.startswith(
-            "footnote-ref-"
-        ):
+        if href.startswith("#footnote-") and identif.startswith("footnote-ref-"):
             return "[^%s]" % identif
         if href.startswith("#endnote-") and identif.startswith("endnote-ref-"):
             return "[^%s]" % identif
@@ -89,9 +87,7 @@ class MystMdConverter(markdownify.MarkdownConverter):
             return text
         return "" + (line_beginning_re.sub("> ", text) + "\n") if text else ""
 
-    convert_sub = sub_inline_conversion(
-        lambda self: self.options["sub_symbol"]
-    )
+    convert_sub = sub_inline_conversion(lambda self: self.options["sub_symbol"])
 
     def convert_sup(self, el, text, convert_as_inline):
         markup_tag = self.options["sup_symbol"]
@@ -104,7 +100,24 @@ class MystMdConverter(markdownify.MarkdownConverter):
             return text
         return "%s%s`%s`%s" % (prefix, markup_tag, text, suffix)
 
+    def convert_table(self, el, text, convert_as_inline):
+        if "##" in text:
+            asset_meta = AssetMetadata()
+            key, val = "", ""
+            for tr in el.find_all(["tr"]):
+                for descendent in tr.find_all():
+                    if descendent.text.startswith("##"):
+                        key = descendent.text
+                    else:
+                        val = descendent.text
+                if key:
+                    asset_meta.add(key, val)
+            if asset_meta:
+                self._metadata.add_asset_metadata(asset_meta)
+            return "\n"
+        return super().convert_table(el, text, convert_as_inline)
 
-def convert_to_md(soup, **options):
-    # TODO: change custom options to be passed to conv_to_md(**opt <==)
-    return MystMdConverter(**options).convert_soup(soup)
+
+def convert_to_md(soup, metadata: BookMetadata, **options):
+    # to consider: change custom options to be passed to convert_to_md(**options <==)
+    return MystMdConverter(metadata, **options).convert_soup(soup)

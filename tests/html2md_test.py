@@ -1,10 +1,10 @@
-import pathlib
-
 import bs4
 import mammoth
+import pathlib
 
-from src.scripts.citations import add_citations_and_bibliography
-from src.scripts.html2md import convert_to_md
+from citations import add_citations_and_bibliography
+from html2md import convert_to_md
+from md_extraction import BookMetadata
 
 
 class TestHtml2MdFootnotes:
@@ -16,14 +16,15 @@ class TestHtml2MdFootnotes:
             result = mammoth.convert_to_html(f)
         cls.html_soup = bs4.BeautifulSoup(result.value, "html.parser")
         cls.html_soup = add_citations_and_bibliography(cls.html_soup)
-        cls.md = convert_to_md(cls.html_soup)
+        metadata = BookMetadata()
+        cls.md = convert_to_md(cls.html_soup, metadata)
 
     def test_footnote_ref_properly_converted_to_myst_syntax(self):
-        expected_md_start = (
-            "Claim A[^footnote-ref-1]. Claim B[^footnote-ref-2]."
-        )
+        expected_md_start = "Claim A[^footnote-ref-1]. Claim B[^footnote-ref-2]."
         assert self.md.startswith(expected_md_start)
 
     def test_footnotes_properly_converted_to_myst_syntax(self):
-        expected_md_includes = "[^footnote-ref-1]: Joe Schmoe, „Just no“, Opinions, 1, Nr. 1 (2035): 1–2."
+        expected_md_includes = (
+            "[^footnote-ref-1]: Joe Schmoe, „Just no“, Opinions, 1, Nr. 1 (2035): 1–2."
+        )
         assert expected_md_includes in self.md
