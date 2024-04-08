@@ -1,6 +1,12 @@
 # Digital-monography
 Platform for scholars of digital humanities to publish their digital work
 
+# Repository status
+
+| Alert |
+| ----------- |
+| Please be informed that the repository was moved to GitLab. Contact maintainers for further information. |
+
 # Building and running the Docker image
 
 ## Building
